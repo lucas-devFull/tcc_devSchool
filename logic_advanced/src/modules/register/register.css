@@ -1,0 +1,23 @@
+.input__register {
+    outline: none;
+    padding: 10px;
+    font-size: 20px;
+    margin-top: 25px;
+    color: #272727;
+    padding-left: 50px;
+    border-style: none;
+    border-radius: 20px;
+    background: #C4C4C4;
+}
+.button__register{
+    width: 100%;
+    outline: none;
+    padding: 10px;
+    font-size: 20px;
+    margin-top: 20px;
+    color: #fafafa;
+    border-style: none;
+    border-radius: 20px;
+    background-image: linear-gradient(to right,#1608dd,#17b9ca);
+}
+.button__register{cursor: pointer;}

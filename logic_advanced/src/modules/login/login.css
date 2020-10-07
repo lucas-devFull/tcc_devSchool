@@ -7,15 +7,13 @@
 }
 
 .box__login{
-    width: 300px;
-    height: 330px;
+    width: 400px;
+    height: 430px;
     display: flex;
     border-radius: 4px;
     align-items: center; 
     flex-direction: column;
     justify-content: center; 
-    background-color: #ffffff;
-    box-shadow: 2px 1px 8px 3px rgba(255, 255, 255, 0.205);
 }
 
 .logo{
@@ -33,25 +31,40 @@
    justify-content: center;
    flex-direction: column;
 }
-.data__form button{
-    width: 100px;
-    height: auto;
-    padding: 8px;
-    border: none;
-    color: white;
-    margin-top: 10px;
-    border-radius: 100px;
-    background-color: #282828;
+
+.input__login{
+    border: 0;
+    width: 85%;
+    height: 25px;
+    margin: 5px 0;
+    outline: none;
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #e0e0e0;
 }
 
-.input{
+.btn__login{
     width: 85%;
-    border: 0 ;
-    height: 25px;
-    outline: none;
-    margin: 5px 0;
-    color: black;
-    padding: 5px 10px;
-    border-radius: 6px;
-    background-color: #e0e0e0;
+    height: 45px;
+    border: none;
+    font-size: 1.1em;
+    margin-top: 30px;
+    color: #fafafa;
+    outline-style: none;
+    border-radius: 15px;
+    background-image: linear-gradient(to right,#1608dd,#17b9ca);
+}
+.btn__login:hover{
+    cursor: pointer;
+}
+
+p,a{
+    margin-top: 10px;
+    color: rgb(197, 197, 197);
+    text-decoration: none;
+}
+a:hover{
+    cursor: pointer;
+    color: #1450c0;
 }
