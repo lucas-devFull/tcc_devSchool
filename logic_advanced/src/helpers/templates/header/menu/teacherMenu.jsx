@@ -6,12 +6,14 @@ const AdminMenu = () => {
     return (
         <>
             <li className="nav-item">
-<<<<<<< HEAD
-                <Link className="nav-link" to="/manage/teacher">
-=======
-                <Link className="nav-link" to="register/teacher">
->>>>>>> a3e2c55aaafbf94a99fbbf15ec36db8369d1f2ee
+                <Link className="nav-link" to="/teacher">
                     <FontAwesomeIcon icon="user-edit" />&nbsp;Gerenciar Professores
+                </Link>
+            </li>
+
+            <li className="nav-item">
+                <Link className="nav-link" to="modulos">
+                    <FontAwesomeIcon icon="user-edit" />&nbsp;Gerenciar Modulos
                 </Link>
             </li>
         </>

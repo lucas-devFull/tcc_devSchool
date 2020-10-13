@@ -1,19 +1,11 @@
 import './login.css';
-<<<<<<< HEAD
-
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
-
 import RequestLogin from './storage';
 import Logo from '../../assets/logo.png';
 import Storage from '../../factory/storage/index';
-=======
-import React, {Component} from 'react';
-import {Link, withRouter} from 'react-router-dom';  
-import Storage from '../../factory/storage/index';
-import Logo from '../../assets/logo.png';
-import RequestLogin from './storage';
->>>>>>> a3e2c55aaafbf94a99fbbf15ec36db8369d1f2ee
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css'; 
 
 class Login extends Component{
 
@@ -25,6 +17,13 @@ class Login extends Component{
         }
     }
 
+    onKeyDown(event){
+        if (event.key === 'Enter') {
+            this.handlesubmit()
+          }
+        
+    }
+
     handlesubmit(){
         const {login, password} = this.state;
         RequestLogin.getAcess(login, password)
@@ -34,6 +33,11 @@ class Login extends Component{
                     Storage.setStorage(res);
                     this.props.history.push('/dashboard');
                     console.log('Login => OK')
+                }else{
+                    document.querySelectorAll("input").forEach(function(e) {
+                        e.classList.add("input-erro");
+                    })
+                    toast.error('Usuario ou senha incorretos !')
                 }
             })
             .catch(error => console.log(error))
@@ -43,16 +47,17 @@ class Login extends Component{
     render(){
         return(
             <div className="container__body">
+            <ToastContainer />
                 <div className="content__login">
                     <div className="box__login">
                         <div className="logo">
                             <img src={Logo} width="70%" height="131px"/>    
                         </div>
-                        <form style={{width: '100%', height: 'auto' }}>
+                        <form style={{width: '100%', height: 'auto' }} >
                             <div className="data__form">
-                                <input type="text" className="input__login" placeholder="E-mail ou mome do usuário" onChange={(e) => this.setState({login: e.target.value})} />
-                                <input type="password"  className="input__login" placeholder="Senha" onChange={(e) => this.setState({password: e.target.value})} />
-                                <button type="button" className="btn__login" onClick={this.handlesubmit.bind(this)}>Entrar</button>
+                                <input type="text" className="input__login"  placeholder="E-mail ou mome do usuário" onKeyUp={this.onKeyDown.bind(this)} onChange={(e) => this.setState({login: e.target.value})} />
+                                <input type="password"  className="input__login" placeholder="Senha" onKeyUp={this.onKeyDown.bind(this)} onChange={(e) => this.setState({password: e.target.value})} />
+                                <button type="button" className="btn__login">Entrar</button>
                             </div>
                         </form>
                         <p>Ainda não é cadastrado?<Link to="/register/student"> <span style={{ color: '#6259e1' }}>Cadastre-se aqui.</span></Link></p>
