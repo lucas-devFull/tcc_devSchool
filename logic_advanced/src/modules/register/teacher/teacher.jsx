@@ -8,9 +8,11 @@ import  RegisterUserTeacher from './storage';
 import {Modal} from './modal/modal';
 import {Card} from '../../../helpers/index';
 import Storage from '../../../factory/storage/index';
+import { withRouter } from 'react-router-dom';
+import Header from '../../../helpers/templates/header/header';
 
 
-export default class RegisterTeacher extends Component {
+class RegisterTeacher extends Component {
     
     constructor(props) {
         super(props);
@@ -39,8 +41,9 @@ export default class RegisterTeacher extends Component {
     render() {
         return (
             <div className="container__body">
-                    <div className="p-4 d-flex justify-content-between ">
-                    <button
+                    <Header /> 
+                    <div className="p-4 d-flex justify-content-end ">
+                    {/* <button
                         type="button"
                         className="btn btn-light rounded-pill"
                         onClick={() => this.props.history.push('/dashboard')}
@@ -49,7 +52,8 @@ export default class RegisterTeacher extends Component {
                         <i className="icon__register__teacher">
                             <FontAwesomeIcon icon="arrow-circle-left" />
                         </i>
-                    </button>
+                    </button> */}
+
                     <Modal
                         token={this.dataUserLogged.token}
                         userLogged
@@ -58,9 +62,11 @@ export default class RegisterTeacher extends Component {
                     />
                 </div>
                 <div className="content_wrapper_dashboard flex-start">        
-                    {this.state.list.map(item => <Card content={item.descricao_professor}/>)}      
+                    {this.state.list.map(item => <Card content={item.descricao_professor} id={item.id_professor}/>)}      
                 </div>
             </div>
         );
     }
 }
+
+export default withRouter(RegisterTeacher)

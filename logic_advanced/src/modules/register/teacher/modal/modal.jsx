@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import  RegisterUserTeacher from '../storage';
-import { Swal } from '../../../../helpers/index';
+import Swal  from '../../../../helpers/swal/sawl';
 
 export class Modal extends Component {
 

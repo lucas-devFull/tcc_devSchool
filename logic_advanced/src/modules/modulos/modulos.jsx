@@ -10,9 +10,9 @@ import { Card } from '../../helpers';
 class RegisterModulos extends Component {
     render(){
         return (
-            <div>
+            <div className="container__body">
                 <Header />
-                <Card/>
+                <Card content={"nome do professor"} />
             </div>
         );
     }
