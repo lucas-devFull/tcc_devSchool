@@ -3,8 +3,13 @@ import '../register.css';
 
 import React from 'react';
 import {Link} from 'react-router-dom';
+<<<<<<< HEAD
 
 import {Swal} from '../../../helpers/index';
+=======
+import Swal from '../../../helpers/swal/sawl';
+
+>>>>>>> a3e2c55aaafbf94a99fbbf15ec36db8369d1f2ee
 import RegisterUserStudent from './storage';
 import Logo from '../../../assets/logo.png';
 

@@ -1,4 +1,5 @@
 import './login.css';
+<<<<<<< HEAD
 
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
@@ -6,6 +7,13 @@ import {Link, withRouter} from 'react-router-dom';
 import RequestLogin from './storage';
 import Logo from '../../assets/logo.png';
 import Storage from '../../factory/storage/index';
+=======
+import React, {Component} from 'react';
+import {Link, withRouter} from 'react-router-dom';  
+import Storage from '../../factory/storage/index';
+import Logo from '../../assets/logo.png';
+import RequestLogin from './storage';
+>>>>>>> a3e2c55aaafbf94a99fbbf15ec36db8369d1f2ee
 
 class Login extends Component{
 

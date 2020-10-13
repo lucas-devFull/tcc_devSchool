@@ -14,7 +14,11 @@ const App = () =>
 				<Route exact path="/" component={Login} />
 				<Route path="/dashboard" component={Dashboard} />
 				<Route path="/register/student" component={RegisterStudant} />
+<<<<<<< HEAD
 				<Route path="/manage/teacher" component={RegisterTeacher} />
+=======
+				<Route path="/register/teacher" component={RegisterTeacher} />
+>>>>>>> a3e2c55aaafbf94a99fbbf15ec36db8369d1f2ee
 				<Route path="/class/conversations" component={ClassTeacher} />
 				<Redirect path="*" to="/" />
 			</Switch>
