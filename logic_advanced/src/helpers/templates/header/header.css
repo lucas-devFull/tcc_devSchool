@@ -1,0 +1,21 @@
+.nav-bg {
+   background-color: #233c4a;
+}
+
+.list{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.image__logo{
+    width: 50%;
+}
+
+.list__item{
+    width: 50%;
+    display: flex;
+    font-size: 25px;
+    margin-right: 10px;
+    justify-content: center;
+}
