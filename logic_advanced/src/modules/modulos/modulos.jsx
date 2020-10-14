@@ -12,8 +12,10 @@ class RegisterModulos extends Component {
         return (
             <div className="container__body">
                 <Header />
-                <Card content={"nome do professor"} />
-            </div>
+                <div className="content_wrapper_dashboard flex-start">
+                    <Card content={"nome do professor"} />
+                </div>
+            </div>            
         );
     }
 }

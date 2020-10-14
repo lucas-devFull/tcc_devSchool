@@ -33,6 +33,10 @@ class RegisterTeacher extends Component {
         .catch(error => console.log('error', error));
         
     }
+    
+    editTeacher(){
+        alert('ainda fazer')
+    }
 
     componentDidMount(){
         this._listTeacher(this.dataUserLogged.token);
@@ -41,19 +45,8 @@ class RegisterTeacher extends Component {
     render() {
         return (
             <div className="container__body">
-                    <Header /> 
-                    <div className="p-4 d-flex justify-content-end ">
-                    {/* <button
-                        type="button"
-                        className="btn btn-light rounded-pill"
-                        onClick={() => this.props.history.push('/dashboard')}
-
-                    >
-                        <i className="icon__register__teacher">
-                            <FontAwesomeIcon icon="arrow-circle-left" />
-                        </i>
-                    </button> */}
-
+                <Header /> 
+                <div className="p-4 d-flex justify-content-end ">
                     <Modal
                         token={this.dataUserLogged.token}
                         userLogged
@@ -62,7 +55,13 @@ class RegisterTeacher extends Component {
                     />
                 </div>
                 <div className="content_wrapper_dashboard flex-start">        
-                    {this.state.list.map(item => <Card content={item.descricao_professor} id={item.id_professor}/>)}      
+                    {this.state.list.map(item => 
+                        <Card 
+                            content={item.descricao_professor} 
+                            id={item.id_professor} 
+                            onClick={this.editTeacher.bind(this)}
+                        />
+                    )}      
                 </div>
             </div>
         );

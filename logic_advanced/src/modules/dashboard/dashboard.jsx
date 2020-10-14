@@ -1,8 +1,11 @@
 import './dashboard.css';
+
 import React, { PureComponent } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import Header from '../../helpers/index';
+
+// import {Header} from '../../helpers/index';
 import Header from '../../helpers/templates/header/header';
+import {Card} from '../../helpers/index';
 
 export default class Dashboard extends PureComponent {
 
@@ -19,15 +22,13 @@ export default class Dashboard extends PureComponent {
 
                 <div className="container__body">
                     <Header />
-                    <div className="content_wrapper flex-start" onClick={() => this.props.history.push('/class/conversations')}>
-                        <div className="card">
-                            <i className="iconDash">
-                                <FontAwesomeIcon icon="users" />
-                            </i>
-                            <h3>Nome da Disciplina</h3>
-                        </div>
+                    <div className="content_wrapper_dashboard flex-start">  
+                        <Card
+                            content={'Nome da disciplina'}
+                            id={''}
+                            onClick={() => this.props.history.push('/class/conversations')}
+                        />                   
                     </div>
-
                 </div>
             </>
         )

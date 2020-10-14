@@ -1,11 +1,14 @@
 import './login.css';
+import 'react-toastify/dist/ReactToastify.min.css'; 
+
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
-import RequestLogin from './storage';
-import Logo from '../../assets/logo.png';
-import Storage from '../../factory/storage/index';
 import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css'; 
+
+import Logo from '../../assets/logo.png';
+import LocalStorage from '../../factory/storage/index';
+
+import RequestLogin from './storage';
 
 class Login extends Component{
 
@@ -30,7 +33,7 @@ class Login extends Component{
             .then(res => res.json())
             .then(res =>{
                 if(res.status) {
-                    Storage.setStorage(res);
+                    LocalStorage.setStorage(res);
                     this.props.history.push('/dashboard');
                     console.log('Login => OK')
                 }else{
@@ -57,7 +60,7 @@ class Login extends Component{
                             <div className="data__form">
                                 <input type="text" className="input__login"  placeholder="E-mail ou mome do usuário" onKeyUp={this.onKeyDown.bind(this)} onChange={(e) => this.setState({login: e.target.value})} />
                                 <input type="password"  className="input__login" placeholder="Senha" onKeyUp={this.onKeyDown.bind(this)} onChange={(e) => this.setState({password: e.target.value})} />
-                                <button type="button" className="btn__login">Entrar</button>
+                                <button type="button" className="btn__login" onClick={this.handlesubmit.bind(this)}>Entrar</button>
                             </div>
                         </form>
                         <p>Ainda não é cadastrado?<Link to="/register/student"> <span style={{ color: '#6259e1' }}>Cadastre-se aqui.</span></Link></p>

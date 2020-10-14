@@ -1,8 +1,8 @@
 import './index.css';
 
-import FontAwesome from 'react-fontawesome';
 import React, { PureComponent } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 // import {Header} from '../../helpers/index';
 import Header from '../../helpers/templates/header/header';
 
@@ -16,7 +16,7 @@ class ClassTeacher extends PureComponent {
     }
 
     componentDidMount() {
-        console.log('test')
+        // console.log('test')
     }
 
     render() {
@@ -31,7 +31,7 @@ class ClassTeacher extends PureComponent {
                                <div className="box_subject">
                                    <h3>Titulo do conteúdo</h3>
                                    <span>conteúdo</span>
-                                   <FontAwesome icon="ellipsis-h" />
+                                   <FontAwesomeIcon icon="ellipsis-h" size="2x"/>                                   
                                </div>
    
                                <h4 className="nenhum_resultado_encontradp">Nenhum conteúdo foi encontrado</h4>
