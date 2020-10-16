@@ -4,10 +4,10 @@ import '../register.css';
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import  RegisterUserTeacher from './storage';
+import {Requestor} from '../../../factory/requestor/requestor';
 import {Modal} from './modal/modal';
 import {Card} from '../../../helpers/index';
-import Storage from '../../../factory/storage/index';
+import LocalStorage from '../../../factory/storage/index';
 import { withRouter } from 'react-router-dom';
 import Header from '../../../helpers/templates/header/header';
 
@@ -19,27 +19,27 @@ class RegisterTeacher extends Component {
         this.state={
             list:[]
         }
-        this.dataUserLogged = Storage.getStorage();
+        this.dataUserLogged = LocalStorage.getStorage();
+        this.requestExecutor = new Requestor;
     }
 
-    _listTeacher(token){
-        RegisterUserTeacher.getUser(token)
+    _listTeacher(){
+        this.requestExecutor.get('professor')
         .then(res => res.json())
         .then(result =>{
             this.setState({
                 list: result.dados
             })
         })
-        .catch(error => console.log('error', error));
-        
+        .catch(error => console.log('error', error));        
     }
     
     editTeacher(){
-        alert('ainda fazer')
+        alert('ainda fazer');
     }
 
     componentDidMount(){
-        this._listTeacher(this.dataUserLogged.token);
+        this._listTeacher();
     }
     
     render() {
@@ -48,8 +48,7 @@ class RegisterTeacher extends Component {
                 <Header /> 
                 <div className="p-4 d-flex justify-content-end ">
                     <Modal
-                        token={this.dataUserLogged.token}
-                        userLogged
+                        token={this.dataUserLogged.token}  
                         btnName={ <FontAwesomeIcon icon="user-plus" size="2x"/>}
                         title="Cadastro de Professor"
                     />

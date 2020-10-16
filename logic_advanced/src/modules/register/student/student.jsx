@@ -49,7 +49,7 @@ export default class RegisterStudent extends React.Component {
                 email: email,
                 password: password,
             });
-            Swal.alertMessage('Sucesso!', 'Cadastro realizado!', 'success');
+            Swal.alertMessage('Sucesso!', 'Cadastro realizado!', 'success', this.props.history.push('/'));
         }
     }
 

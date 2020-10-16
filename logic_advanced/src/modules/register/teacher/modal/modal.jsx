@@ -3,8 +3,8 @@ import './modal.css';
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import  RegisterUserTeacher from '../storage';
-import Swal  from '../../../../helpers/swal/sawl';
+import{ Requestor} from '../../../../factory/requestor/requestor';
+import Swal from '../../../../helpers/swal/sawl';
 
 export class Modal extends Component {
 
@@ -17,11 +17,13 @@ export class Modal extends Component {
             password: '',
             cpassword: ''
         };
+        this.requestExecutor = new Requestor;
     }
 
     handleSubmit() {
         const {token} = this.props;
         const { name, userName, email, password, cpassword } = this.state;
+        let formData = new FormData();
         let validate = true;
 
         if (!name || !userName || !email || !password || !cpassword) {
@@ -41,15 +43,21 @@ export class Modal extends Component {
             // fazer função para validar segurança
         };
 
-        if (validate) {
-            RegisterUserTeacher.setUser({
-                name: name,
-                userName: userName,
-                email: email,
-                password: password,
-                token: token
-            });
-            Swal.alertMessage('Sucesso!', 'Cadastro realizado!', 'success');
+        if (validate) {    
+            formData.append("descricao_usuario", name);
+            formData.append("email_usuario", email);
+            formData.append("senha_usuario", password);
+            formData.append("nick_usuario", userName);
+            
+            this.requestExecutor.post('professor',formData);
+            
+            Swal.alertMessage(
+                'Sucesso!', 
+                'Cadastro realizado!', 
+                'success',
+                window.location.reload()
+            );
+            
         }
     }
 
@@ -57,10 +65,10 @@ export class Modal extends Component {
         const { btnName, title } = this.props;
         return (
             <div>
-                <button 
-                    type="button" 
-                    className="btn btn-light" 
-                    data-toggle="modal" 
+                <button
+                    type="button"
+                    className="btn btn-light"
+                    data-toggle="modal"
                     data-target="#staticBackdrop"
                 >
                     {btnName}
@@ -72,21 +80,21 @@ export class Modal extends Component {
                                 <h5 className="modal-title" id="staticBackdropLabel">{title}</h5>
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">
-                                        <FontAwesomeIcon icon="times"/>
+                                        <FontAwesomeIcon icon="times" />
                                     </span>
                                 </button>
                             </div>
                             <div className="modal-body">
-                            <form className="form-group">
-                                    <input type="text" className="form-control mt-3" placeholder="Nome Completo" onChange={(e) => this.setState({name: e.target.value})}/>
-                                    <input type="text" className="form-control mt-3" placeholder="Apelido" onChange={(e) => this.setState({userName: e.target.value})}/>
-                                    <input type="email" className="form-control mt-3" placeholder="Email" onChange={(e) => this.setState({email: e.target.value})}/>
-                                    <input type="password" className="form-control mt-3" placeholder="Digite uma senha" onChange={(e) => this.setState({password: e.target.value})}/>
-                                    <input type="password" className="form-control mt-3" placeholder="Confirmar senha" onChange={(e) => this.setState({cpassword: e.target.value})}/>                         
+                                <form className="form-group">
+                                    <input type="text" className="form-control mt-3" placeholder="Nome Completo" onChange={(e) => this.setState({ name: e.target.value })} />
+                                    <input type="text" className="form-control mt-3" placeholder="Apelido" onChange={(e) => this.setState({ userName: e.target.value })} />
+                                    <input type="email" className="form-control mt-3" placeholder="Email" onChange={(e) => this.setState({ email: e.target.value })} />
+                                    <input type="password" className="form-control mt-3" placeholder="Digite uma senha" onChange={(e) => this.setState({ password: e.target.value })} />
+                                    <input type="password" className="form-control mt-3" placeholder="Confirmar senha" onChange={(e) => this.setState({ cpassword: e.target.value })} />
                                 </form>
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                 <button type="button" className="btn btn-success" onClick={this.handleSubmit.bind(this)}>Cadastar</button>
                             </div>
                         </div>
