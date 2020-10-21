@@ -66,7 +66,7 @@ class RegisterModulos extends Component {
           />
         </div>
 
-        <div className="content_wrapper_dashboard flex-start">
+        <div className="content_wrapper flex-start overflow-auto">
           {this.state.list.map((item) => (
             <Card
               content={item.descricao_modulo}

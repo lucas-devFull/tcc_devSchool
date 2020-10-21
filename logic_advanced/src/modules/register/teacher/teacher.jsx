@@ -1,7 +1,7 @@
 import './teacher.css';
 import '../register.css';
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { withRouter } from 'react-router-dom';
 
@@ -49,7 +49,6 @@ class RegisterTeacher extends Component {
                 <input type="text" className="form-control mt-3" placeholder="Apelido" />
                 <input type="email" className="form-control mt-3" placeholder="Email" />
                 <input type="password" className="form-control mt-3" placeholder="Digite uma senha" />
-                <input type="password" className="form-control mt-3" placeholder="Confirmar senha" />
             </form>        
 
         return (
@@ -67,13 +66,15 @@ class RegisterTeacher extends Component {
                         title="Cadastro de Professor"
                     /> */}
                 </div>
-                <div className="content_wrapper_dashboard flex-start">
-                    {this.state.list.map(item =>
-                        <Card
-                            content={item.descricao_professor}
-                            id={item.id_professor}
-                            onClick={this.editTeacher.bind(this)}
-                        />
+                <div className="content_wrapper flex-start overflow-auto">
+                    {this.state.list.map((item,i) =>
+                        <Fragment key={i}>
+                            <Card
+                                content={item.descricao_professor}
+                                id={item.id_professor}
+                                onClick={this.editTeacher.bind(this)}
+                            />
+                        </Fragment>
                     )}
                 </div>
             </div>

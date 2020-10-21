@@ -5,19 +5,30 @@ import React, { Component } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {Requestor} from '../../factory/requestor/requestor';
+import Swal from '../../helpers/swal/sawl';
 
 export class Modal extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            data: []
-        }
-        this.executerRequestor = new Requestor;
+        this.executeRequestor = new Requestor;
     }
 
     handleSubmit(){
-        console.log(this.state.data);
+        let inputValues = [];
+        let formData = new FormData();
+        document.querySelectorAll('input').forEach(item =>{
+           inputValues.push(item.value);           
+        });
+        inputValues.map((item,i) =>{
+           if(item){
+                formData.append(i === 0 ? "descricao_usuario" : '', item);
+                formData.append(i === 1 ? "nick_usuario" : '', item);
+                formData.append(i === 2 ? "email_usuario" : '', item);
+                formData.append(i === 3 ? "senha_usuario" : '', item);
+            }else Swal.alertMessage('Erro!', 'Preencha todos os campos', 'error');
+        })
+        this.executeRequestor.post('professor',formData);
     }
 
     render() {

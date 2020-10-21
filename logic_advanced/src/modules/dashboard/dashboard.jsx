@@ -22,7 +22,7 @@ export default class Dashboard extends PureComponent {
 
                 <div className="container__body">
                     <Header />
-                    <div className="content_wrapper_dashboard flex-start">  
+                    <div className="content_wrapper flex-start overflow-auto">  
                         <Card
                             content={'Nome da disciplina'}
                             id={''}
