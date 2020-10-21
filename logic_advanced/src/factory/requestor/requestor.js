@@ -6,25 +6,25 @@ export  class Requestor{
         this.dataUserLogged = LocalStorage.getStorage();
     }
 
-    get(urlG){
+    getHeaders(){
         let myHeaders = new Headers();
         myHeaders.append("Authorization", `${this.dataUserLogged.token}`);
+        return myHeaders;
+    }
 
+    get(urlG){
         let options = {
             method: 'GET',
-            headers: myHeaders,
+            headers: this.getHeaders(),
         }
         return fetch(`${this.baseURL}/${urlG}`,options);           
     }
 
     post(urlP,formData){
         let typeRequest = formData.get('id') === null ? 'POST' : 'PUT';
-        let myHeaders = new Headers();
-        myHeaders.append("Authorization", `${this.dataUserLogged.token}`);
-        
         let options = {
             method: typeRequest,
-            headers: myHeaders,
+            headers: this.getHeaders(),
             body:formData
         }       
 

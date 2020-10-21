@@ -15,20 +15,13 @@ export class Modal extends Component {
     }
 
     handleSubmit(){
-        let inputValues = [];
-        let formData = new FormData();
-        document.querySelectorAll('input').forEach(item =>{
-           inputValues.push(item.value);           
-        });
-        inputValues.map((item,i) =>{
+        let inputValues = new FormData();
+        document.querySelectorAll('.elementos').forEach(item =>{
            if(item){
-                formData.append(i === 0 ? "descricao_usuario" : '', item);
-                formData.append(i === 1 ? "nick_usuario" : '', item);
-                formData.append(i === 2 ? "email_usuario" : '', item);
-                formData.append(i === 3 ? "senha_usuario" : '', item);
+                inputValues.append(item.getAttribute("name"), item.value)
             }else Swal.alertMessage('Erro!', 'Preencha todos os campos', 'error');
-        })
-        this.executeRequestor.post('professor',formData);
+        }); 
+        this.executeRequestor.post(this.props.url,inputValues);
     }
 
     render() {

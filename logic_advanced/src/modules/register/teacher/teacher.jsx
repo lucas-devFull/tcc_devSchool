@@ -45,10 +45,10 @@ class RegisterTeacher extends Component {
     render() {
         const bodyModal =  () =>           
             <form className="form-group">
-                <input type="text" className="form-control mt-3" placeholder="Nome Completo" />
-                <input type="text" className="form-control mt-3" placeholder="Apelido" />
-                <input type="email" className="form-control mt-3" placeholder="Email" />
-                <input type="password" className="form-control mt-3" placeholder="Digite uma senha" />
+                <input type="text" className="elementos form-control mt-3" name="descricao_usuario" placeholder="Nome Completo" />
+                <input type="text" className="elementos form-control mt-3" name="nick_usuario" placeholder="Apelido" />
+                <input type="email" className="elementos form-control mt-3" name="email_usuario" placeholder="Email" />
+                <input type="password" className="elementos form-control mt-3" name="senha_usuario" placeholder="Digite uma senha" />
             </form>        
 
         return (
@@ -59,6 +59,7 @@ class RegisterTeacher extends Component {
                         btnName={<FontAwesomeIcon icon="user-plus" size="2x" />}
                         title={'Cadastro de Professor'}
                         body={bodyModal()}
+                        url="professor"
                     />
                     {/* <Modal
                         token={this.dataUserLogged.token}  
