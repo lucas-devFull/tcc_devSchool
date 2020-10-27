@@ -3,7 +3,6 @@ import './index.css';
 import React, { PureComponent } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-// import {Header} from '../../helpers/index';
 import Header from '../../helpers/templates/header/header';
 
 

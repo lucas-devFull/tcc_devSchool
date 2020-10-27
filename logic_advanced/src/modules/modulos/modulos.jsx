@@ -3,31 +3,61 @@ import "./modulos.css";
 import "../register/register.css";
 import { withRouter } from "react-router-dom";
 import Header from "../../helpers/templates/header/header";
-import { Card } from "../../helpers/index";
-import { Modal } from "./modal/modal";
+import { Card, Elements, Modal } from "../../helpers/index";
+// import { Modal } from "./modal/modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Storage from "../../factory/storage/index";
 import Modulos from "./storage";
+import Swal from "../../helpers/swal/sawl";
 
 class RegisterModulos extends Component {
   constructor(props) {
     super(props);
     this.state = {
       list: [],
+      listMaterias: [],
+      editaModulo:[]
     };
     this.dataUserLogged = Storage.getStorage();
+  }
+
+  listMaterias(dados){
+    let materiasSelecionadas = []
+    let materiasNaoSelecionadas = []
+    let retorno = {}
+
+    for (const i in dados) {
+      if(dados[i].id_modulo == null){
+        materiasNaoSelecionadas.push(dados[i]);
+      }else{
+        materiasSelecionadas.push(dados[i]);
+      }
+    }
+    retorno['naoSelecionados'] = materiasNaoSelecionadas;
+    retorno['selecionados'] = materiasSelecionadas;
+    return retorno;
   }
 
   listModulos(token, id = false) {
     Modulos.getModulos(token, id)
       .then((res) => res.json())
       .then((result) => {
-        if (id) {      
-          console.log(result.dados);
+        if (result.status) {
+          if (id) {
+            let materias = this.listMaterias(result.materias);
+            this.setState({
+              listMaterias: materias,
+              editaModulo: result.dados
+            });
+          } else {
+            let materias = this.listMaterias(result.materias);
+            this.setState({
+              list: result.dados,
+              listMaterias: materias
+            });
+          }
         }else{
-          this.setState({
-            list: result.dados,
-          });
+          Swal.alertMessage('Erro!', result.message, 'error');
         }
       })
       .catch((error) => console.log("error", error));
@@ -54,15 +84,43 @@ class RegisterModulos extends Component {
   }
 
   render() {
+    const bodyModal = () => (
+      <div className="form-group">
+        <div className="row">
+          <div className="col-md-8">
+            <input
+              type="text"
+              className="elementos form-control mt-3"
+              name="descricao_modulo"
+              placeholder="Descricao Modulo"
+            />
+          </div>
+
+          <div className="col-md-4  my-1 d-flex align-items-end">
+            <div className="custom-control custom-checkbox mr-sm-2">
+              <input
+                type="checkbox"
+                className="custom-control-input elementos"
+                id="customControlAutosizing"
+              />
+              <label className="custom-control-label" htmlFor="customControlAutosizing">
+                Modulo Inicial
+              </label>
+            </div>
+          </div>
+        </div>
+        <Elements naoSelecionados={this.state.listMaterias.naoSelecionados} selecionados={this.state.listMaterias.selecionados} />
+      </div>
+    );
     return (
       <div className="container__body">
         <Header />
         <div className="p-4 d-flex justify-content-end ">
           <Modal
-            token={this.dataUserLogged.token}
-            userLogged
             btnName={<FontAwesomeIcon icon="user-plus" size="2x" />}
-            title="Cadastro de Modulos"
+            title={"Cadastro de Modulos"}
+            body={bodyModal()}
+            url="Modulos"
           />
         </div>
 
@@ -72,7 +130,13 @@ class RegisterModulos extends Component {
               content={item.descricao_modulo}
               id={item.id_modulo}
               key={item.id_modulo}
-              onClick={this.listModulos.bind(this, this.dataUserLogged.token, item.id_modulo)}
+              dataTarget="#staticBackdrop"
+              dataToggle="modal"
+              onClick={this.listModulos.bind(
+                this,
+                this.dataUserLogged.token,
+                item.id_modulo,
+              )}
             />
           ))}
         </div>

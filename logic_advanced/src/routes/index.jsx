@@ -15,8 +15,7 @@ const App = () =>
 				<Route exact path="/" component={Login} />
 				<Route path="/dashboard" component={Dashboard} />
 				<Route path="/register/student" component={RegisterStudant} />
-				{/* <Route path="/manage/teacher" component={RegisterTeacher} /> */}
-				<Route path="/class/conversations" component={ClassTeacher} />
+				<Route path="/conversations" component={ClassTeacher} />
 				<Route path="/teacher" component={RegisterTeacher} />
 				<Route path="/modulos" component={RegisterModulos} />
 				<Redirect path="*" to="/" />
