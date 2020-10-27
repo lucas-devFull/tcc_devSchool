@@ -1,0 +1,13 @@
+.drag_elementos{
+    display: flex;
+}
+
+.drag_lista{
+    list-style-type: none;
+}
+
+.drag_elementros_direita{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
