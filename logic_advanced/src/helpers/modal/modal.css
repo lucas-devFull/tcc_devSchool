@@ -1,3 +1,13 @@
 .modal-content{
-    color: #353535;
+    background: #303030;
+    color: white;
+}
+
+.close{
+    color: white;
+}
+
+.close:hover {
+    color: #fff;
+    text-decoration: none;
 }

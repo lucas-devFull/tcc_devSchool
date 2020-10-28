@@ -1,4 +1,4 @@
-.card{
+.component_card{
     cursor: pointer;
     width: 250px;
     height: 200px;
@@ -10,7 +10,7 @@
     transition: 0.3s;
 }
 
-.card .iconDash{
+.component_card .iconDash{
     width: 100%;
     display: flex;
     align-items: center;
@@ -18,14 +18,22 @@
     font-size: 60px;
 }
 
-.card h3 { 
+.component_card h3 { 
     font-size: 20px;
     margin-top: 20px;
 }
 
-.card:hover {
-    background-color: #767676;
-    border: 2px solid white;
+.component_card:hover {
+    background-color: #3e3e3e;
+    border: 2px solid #3e3e3e;
     transition: 0.3s;
 }
 
+.component_card:focus {
+    outline: none !important;
+}
+
+.btn_delete_card:hover {
+    cursor: pointer;
+    background: #3e3e3e;
+}

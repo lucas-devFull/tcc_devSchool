@@ -4,10 +4,50 @@
 
 .drag_lista{
     list-style-type: none;
+    width: 43%;
 }
 
 .drag_elementros_direita{
     display: flex;
     flex-direction: column;
     margin-left: 10px;
+    margin: 0em 2em;
+}
+
+.card_box_component{
+    height: 30em;
+    margin-top: 1em;
+    background: #303030a6;
+    border: #979797 solid 1px;
+}
+
+.card-header{
+    background-color: transparent;
+    border-bottom: 1px solid rgb(151 151 151);
+}
+
+.button_elements{
+    padding: 1em;
+    border: white solid 1px;
+    background: #00000030;
+    margin-bottom: 1em;
+}
+
+.button_elements:hover{
+    cursor: pointer;
+}
+
+.label_elements{
+    padding: 0.5em;
+    border: solid 1px;
+    width: 100%;
+
+}
+
+label.label_elements:hover {
+    background: #505050;
+}
+
+.selected{
+    background-color: #505050;
 }

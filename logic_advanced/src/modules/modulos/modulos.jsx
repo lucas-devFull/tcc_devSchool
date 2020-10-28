@@ -109,7 +109,7 @@ class RegisterModulos extends Component {
             </div>
           </div>
         </div>
-        <Elements naoSelecionados={this.state.listMaterias.naoSelecionados} selecionados={this.state.listMaterias.selecionados} />
+        <Elements naoSelecionados={this.state.listMaterias.naoSelecionados} selecionados={this.state.listMaterias.selecionados} title="Matérias" />
       </div>
     );
     return (
@@ -124,7 +124,7 @@ class RegisterModulos extends Component {
           />
         </div>
 
-        <div className="content_wrapper flex-start overflow-auto">
+        <div className="row row_card">
           {this.state.list.map((item) => (
             <Card
               content={item.descricao_modulo}
