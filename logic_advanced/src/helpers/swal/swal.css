@@ -1,0 +1,15 @@
+.button_red{
+    background-color: #e84747;
+}
+
+.button_red:hover{
+    background-color: #c22c2c !important;
+}
+
+.button_info{
+    background-color: #34b2ee;
+}
+
+.button_info:hover{
+    background-color: #39a0d0 !important;
+}

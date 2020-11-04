@@ -34,8 +34,12 @@ export default class Modulos {
 
     }
 
-    static DeleteModulo(token, id=false){
-        
+    static deleteModulo(token, id=false){
+        let options = {
+            method: 'DELETE',
+            headers: this.getHeaders(token),
+        }
+        return fetch("http://127.0.0.1:82/modulos?id_modulo="+id, options);
     }
 
 }

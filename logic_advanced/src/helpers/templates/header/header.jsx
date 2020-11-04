@@ -4,6 +4,7 @@ import Storage from '../../../factory/storage/index';
 import {TeacherMenu, StudentMenu } from './menu/index';
 import { Link, withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ImgDefault from "../../../assets/user.jpg"
 
 class Header extends Component {
     constructor(props) {
@@ -40,7 +41,12 @@ class Header extends Component {
                             </li>
                            { this.componentDidMount()}
                         </ul>
+                        {/* <div> */}
+                        {/* <div> */}
+                            {/* <img src={ImgDefault} alt=""/> */}
+                        {/* </div> */}
                         <button className="btn btn-danger my-2 my-sm-0" type="button" onClick={this.logout.bind(this)}>Sair</button>
+                        {/* </div> */}
                     </div>
                 </nav>
             </>

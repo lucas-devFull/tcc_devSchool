@@ -31,6 +31,12 @@ export const TeacherMenu = (props) => {
             {
                 props.props.tipo === '0' ? <AdminMenu/> : ''
             }
+
+             <li className="nav-item">
+                <Link className="nav-link" to="/materias">
+                    <FontAwesomeIcon icon="user-edit" />&nbsp;Gerenciar Materias
+                </Link>
+            </li>
         </>
     )
 }

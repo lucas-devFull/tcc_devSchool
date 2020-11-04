@@ -17,7 +17,7 @@ export  class Requestor{
             method: 'GET',
             headers: this.getHeaders(),
         }
-        return fetch(`${this.baseURL}/${urlG}`,options);           
+        return fetch(`${this.baseURL}/${urlG}`,options);
     }
 
     post(urlP,formData){
@@ -32,5 +32,14 @@ export  class Requestor{
         .then(response => response.json())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
+    }
+
+    delete(urlD){
+        let options = {
+            method: 'DELETE',
+            headers: this.getHeaders(),
+        }
+
+        return fetch(`${this.baseURL}/${urlD}`,options);
     }
 }

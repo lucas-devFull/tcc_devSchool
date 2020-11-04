@@ -1,81 +1,37 @@
 import React, { Component } from "react";
 import "@kenshooui/react-multi-select/dist/style.css";
 import MultiSelect from "@kenshooui/react-multi-select";
-import "./modulos.css";
-import "../register/register.css";
+import "./materias.css";
+import "../register.css";
 import { withRouter } from "react-router-dom";
-import Header from "../../helpers/templates/header/header";
-import { Example, Card, Modal } from "../../helpers/index";
+import Header from "../../../helpers/templates/header/header";
+import { Example, Card, Modal } from "../../../helpers/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Storage from "../../factory/storage/index";
-import Modulos from "./storage";
-import Swal from "../../helpers/swal/sawl";
-class RegisterModulos extends Component {
+import Storage from "../../../factory/storage/index";
+import Materias from "./storage";
+import Swal from "../../../helpers/swal/sawl";
+import { Requestor } from "../../../factory/requestor/requestor";
+class RegisterMaterias extends Component {
   constructor(props) {
     super(props);
     this.state = {
       list: [],
-      selecionados: [],
-      naoSelecionados: [],
-      editaModulo: [],
     };
-    this.dataUserLogged = Storage.getStorage();
-    this.handleChangeee = this.handleChange.bind(this);
+    this.requestExecutor = new Requestor();
   }
 
-  componentDidMount() {
-    this.listModulos(this.dataUserLogged.token);
-    console.log(this);
-    this.handleChange()
-  }
-
-  handleChange(selecionados) {
-    this.setState({ selecionados });
-  }
-  
-  listMaterias(dados) {
-    let materiasSelecionadas = [];
-    let materiasNaoSelecionadas = [];
-    let retorno = {};
-
-    for (const i in dados) {
-      if (dados[i].id_modulo == null) {
-        materiasNaoSelecionadas.push({
-          id: dados[i].id_materia,
-          label: dados[i].descricao_materia,
-        });
-      } else {
-        materiasSelecionadas.push({
-          id: dados[i].id_materia,
-          label: dados[i].descricao_materia,
-        });
-      }
-    }
-    retorno["naoSelecionados"] = materiasNaoSelecionadas;
-    retorno["selecionados"] = materiasSelecionadas;
-    return retorno;
-  }
-
-  listModulos(token, id = false) {
-    Modulos.getModulos(token, id)
+  listMaterias(id = false) {
+    this.requestExecutor
+      .get(`materias${id === false ? "" : `?id_materia=${id}`}`)
       .then((res) => res.json())
       .then((result) => {
         if (result.status) {
           if (id) {
-            let materias = this.listMaterias(result.materias);
-            this.setState({
-              listMaterias: materias,
-              editaModulo: result.dados,
-            });
-          this.handleChange.bind(this.state.materias.selecionados)
+            console.log(result);
           } else {
-            let materias = this.listMaterias(result.materias);
             this.setState({
               list: result.dados,
-              selecionados: materias.selecionados,
-              naoSelecionados: materias.naoSelecionados,
             });
-          this.handleChange(this.state.materias.selecionados)
           }
         } else {
           Swal.alertMessage("Erro!", result.message, "error");
@@ -84,11 +40,11 @@ class RegisterModulos extends Component {
       .catch((error) => console.log("error", error));
   }
 
-  setModulo(dados) {
-    Modulos.setModulo(this.dataUserLogged.token, dados);
+  setMateria(dados) {
+    Materias.setMateria(this.dataUserLogged.token, dados);
   }
 
-  deleteModulo(token, id) {
+  deleteMateria(id = 0) {
     if (id > 0) {
       Swal.alertMessage(
         "Atenção!",
@@ -107,14 +63,14 @@ class RegisterModulos extends Component {
         },
         {},
         function (context) {
-          Modulos.deleteModulo(token, id)
+          context.requestExecutor.delete(`materias${id === false ? "" : `?id_materia=${id}`}`)
             .then((res) => res.json())
             .then((result) => {
               if (result.status) {
                 Swal.alertMessage("Sucesso !", result.msg, "success", "", {
                   Ok: { className: "button_info" },
                 });
-                context.listModulos(context.dataUserLogged.token);
+                context.listMaterias();
               }
             });
         },
@@ -157,12 +113,16 @@ class RegisterModulos extends Component {
         <MultiSelect
           items={this.state.naoSelecionados}
           selectedItems={this.state.selecionados}
-          onChange={this.handleChangeee}
           showSelectAll={true}
         />
       </div>
     );
   }
+
+  componentDidMount() {
+    this.listMaterias();
+  }
+
   render() {
     return (
       <div className="container__body">
@@ -170,42 +130,28 @@ class RegisterModulos extends Component {
         <div className="p-4 d-flex justify-content-end ">
           <Modal
             btnName={<FontAwesomeIcon icon="user-plus" size="2x" />}
-            title={"Cadastro de Modulos"}
+            title={"Cadastro de Materias"}
             body={this._bodyModal()}
-            url="Modulos"
+            url="Materias"
           />
         </div>
 
         <div className="row row_card">
           {this.state.list.map((item) => (
             <Card
-              content={item.descricao_modulo}
-              id={item.id_modulo}
-              key={item.id_modulo}
+              content={item.descricao_materia}
+              id={item.id_materia}
+              key={item.id_materia}
               dataTarget="#staticBackdrop"
               dataToggle="modal"
-              ClickDelete={this.deleteModulo.bind(
-                this,
-                this.dataUserLogged.token,
-                item.id_modulo
-              )}
-              ClickList={this.listModulos.bind(
-                this,
-                this.dataUserLogged.token,
-                item.id_modulo
-              )}
+              ClickDelete={this.deleteMateria.bind(this, item.id_materia)}
+              ClickList={this.listMaterias.bind(this, item.id_materia)}
             />
           ))}
-          <MultiSelect
-            items={this.state.naoSelecionados}
-            selectedItems={this.state.selecionados}
-            onChange={this.handleChangeee}
-            showSelectAll={true}
-          />
         </div>
       </div>
     );
   }
 }
 
-export default withRouter(RegisterModulos);
+export default withRouter(RegisterMaterias);

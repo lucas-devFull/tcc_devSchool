@@ -21,6 +21,11 @@ export default class RegisterStudent extends React.Component {
         };
     }
 
+    onKeyDown(event){
+        if (event.key === 'Enter') {
+            this.submitData()
+          }   
+    }
     submitData() {
         const { name, userName, email, password, cpassword } = this.state;
         let validate = true;
@@ -48,8 +53,16 @@ export default class RegisterStudent extends React.Component {
                 userName: userName,
                 email: email,
                 password: password,
-            });
-            Swal.alertMessage('Sucesso!', 'Cadastro realizado!', 'success', this.props.history.push('/'));
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.status == true) {
+                    Swal.alertMessage('Sucesso!', 'Cadastro realizado', 'success', this.props.history.push('/'));
+                }else{
+                    Swal.alertMessage('Erro!', result.msg, 'warning');
+                }
+            })
+            .catch(error => console.log('error', error));
         }
     }
 
@@ -62,11 +75,11 @@ export default class RegisterStudent extends React.Component {
                     </div>
                     <div className="box__right">
                         <form className="form">
-                            <input className="input__register" type="text" placeholder="Nome completo" onChange={(e) => this.setState({ name: e.target.value })} />
-                            <input className="input__register" type="text" placeholder="Nome de usuário(Apelido)" onChange={(e) => this.setState({ userName: e.target.value })} />
-                            <input className="input__register" type="email" placeholder="E-mail" onChange={(e) => this.setState({ email: e.target.value })} />
-                            <input className="input__register" type="password" placeholder="Digite sua senha" onChange={(e) => this.setState({ password: e.target.value })} />
-                            <input className="input__register" type="password" placeholder="Confirmar senha" onChange={(e) => this.setState({ cpassword: e.target.value })} />
+                            <input className="input__register" type="text" placeholder="Nome completo" onKeyUp={this.onKeyDown.bind(this)}  onChange={(e) => this.setState({ name: e.target.value })} />
+                            <input className="input__register" type="text" placeholder="Nome de usuário(Apelido)" onKeyUp={this.onKeyDown.bind(this)}  onChange={(e) => this.setState({ userName: e.target.value })} />
+                            <input className="input__register" type="email" placeholder="E-mail" onKeyUp={this.onKeyDown.bind(this)}  onChange={(e) => this.setState({ email: e.target.value })} />
+                            <input className="input__register" type="password" placeholder="Digite sua senha" onKeyUp={this.onKeyDown.bind(this)}  onChange={(e) => this.setState({ password: e.target.value })} />
+                            <input className="input__register" type="password" placeholder="Confirmar senha" onKeyUp={this.onKeyDown.bind(this)}  onChange={(e) => this.setState({ cpassword: e.target.value })} />
 
                             <div className="btns">
                                 <button type="button" className="button__register" onClick={this.submitData.bind(this)} >Cadastrar</button>
