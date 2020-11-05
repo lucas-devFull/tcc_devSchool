@@ -8,6 +8,7 @@ const RegisterTeacher = lazy(() => import('../modules/register/teacher/teacher')
 const ClassTeacher = lazy(() => import('../modules/classTeacher'));
 const RegisterModulos = lazy(() => import('../modules/modulos/modulos'));
 const RegisterMaterias = lazy(() => import('../modules/register/materias/materias'));
+const RegisterAlunos = lazy(() => import('../modules/register/alunos/alunos'));
 
 const App = () =>
 	<Router>
@@ -20,6 +21,7 @@ const App = () =>
 				<Route path="/teacher" component={RegisterTeacher} />
 				<Route path="/modulos" component={RegisterModulos} />
 				<Route path="/materias" component={RegisterMaterias} />
+				<Route path="/alunos" component={RegisterAlunos} />
 				<Redirect path="*" to="/" />
 			</Switch>
 		</Suspense>

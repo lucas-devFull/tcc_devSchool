@@ -21,6 +21,7 @@
 
 .component_card .iconDash{
     width: 100%;
+    height: 1.4em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -61,4 +62,13 @@
 .btn_delete_card:hover {
     cursor: pointer;
     background: #3e3e3e;
+}
+
+.img_card{
+    width: 100%;
+    border-radius: 6%;
+}
+
+.div_img_card{
+    width: 6em;
 }

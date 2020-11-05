@@ -19,3 +19,22 @@
     margin-right: 10px;
     justify-content: center;
 }
+
+.img_header{
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.botoes_sair_perfil{
+    display: flex;
+    align-items: center;
+}
+
+.div_img_header{
+    width: 4.3em;
+    height: 3.5em;
+    margin-right: 2em;
+    border-radius: 100%;
+}

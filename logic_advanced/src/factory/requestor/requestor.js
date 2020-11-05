@@ -29,9 +29,6 @@ export  class Requestor{
         }       
 
         return fetch(`${this.baseURL}/${urlP}`, options)
-        .then(response => response.json())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
     }
 
     delete(urlD){

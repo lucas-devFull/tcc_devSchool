@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import "@kenshooui/react-multi-select/dist/style.css";
 import MultiSelect from "@kenshooui/react-multi-select";
-import "./materias.css";
+import "./alunos.css";
 import "../register.css";
 import { withRouter } from "react-router-dom";
 import Header from "../../../helpers/templates/header/header";
 import { Card, Modal } from "../../../helpers/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Materias from "./storage";
+import Alunos from "./storage";
 import Swal from "../../../helpers/swal/sawl";
 import { Requestor } from "../../../factory/requestor/requestor";
-class RegisterMaterias extends Component {
+class RegisterAlunos extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,9 +19,9 @@ class RegisterMaterias extends Component {
     this.requestExecutor = new Requestor();
   }
 
-  listMaterias(id = false) {
+  listAlunos(id = false) {
     this.requestExecutor
-      .get(`materias${id === false ? "" : `?id_materia=${id}`}`)
+      .get(`aluno${id === false ? "" : `?id_aluno=${id}`}`)
       .then((res) => res.json())
       .then((result) => {
         if (result.status) {
@@ -38,7 +38,7 @@ class RegisterMaterias extends Component {
   }
 
   setMateria(dados) {
-    Materias.setMateria(this.dataUserLogged.token, dados);
+    Alunos.setMateria(this.dataUserLogged.token, dados);
   }
 
   deleteMateria(id = 0) {
@@ -60,14 +60,14 @@ class RegisterMaterias extends Component {
         },
         {},
         function (context) {
-          context.requestExecutor.delete(`materias${id === false ? "" : `?id_materia=${id}`}`)
+          context.requestExecutor.delete(`aluno${id === false ? "" : `?id_aluno=${id}`}`)
             .then((res) => res.json())
             .then((result) => {
               if (result.status) {
                 Swal.alertMessage("Sucesso !", result.msg, "success", "", {
                   Ok: { className: "button_info" },
                 });
-                context.listMaterias();
+                context.listAlunos();
               }
             });
         },
@@ -107,17 +107,12 @@ class RegisterMaterias extends Component {
             </div>
           </div>
         </div>
-        <MultiSelect
-          items={this.state.naoSelecionados}
-          selectedItems={this.state.selecionados}
-          showSelectAll={true}
-        />
       </div>
     );
   }
 
   componentDidMount() {
-    this.listMaterias();
+    this.listAlunos();
   }
 
   render() {
@@ -127,22 +122,23 @@ class RegisterMaterias extends Component {
         <div className="p-4 d-flex justify-content-end ">
           <Modal
             btnName={<FontAwesomeIcon icon="user-plus" size="2x" />}
-            title={"Cadastro de Materias"}
+            title={"Cadastro de Alunos"}
             body={this._bodyModal()}
-            url="Materias"
+            url="Alunos"
           />
         </div>
 
         <div className="row row_card">
           {this.state.list.map((item) => (
             <Card
-              content={item.descricao_materia}
-              id={item.id_materia}
-              key={item.id_materia}
+              content={item.descricao_usu_aluno}
+              id={item.id_aluno}
+              imagem={false}
+              key={item.id_aluno}
               dataTarget="#staticBackdrop"
               dataToggle="modal"
-              ClickDelete={this.deleteMateria.bind(this, item.id_materia)}
-              ClickList={this.listMaterias.bind(this, item.id_materia)}
+              ClickDelete={this.deleteMateria.bind(this, item.id_aluno)}
+              ClickList={this.listAlunos.bind(this, item.id_aluno)}
             />
           ))}
         </div>
@@ -151,4 +147,4 @@ class RegisterMaterias extends Component {
   }
 }
 
-export default withRouter(RegisterMaterias);
+export default withRouter(RegisterAlunos);

@@ -25,7 +25,16 @@ export class Modal extends Component {
         inputValues.append(item.getAttribute("name"), item.value);
       } else Swal.alertMessage("Erro!", "Preencha todos os campos", "error");
     });
-    this.executeRequestor.post(this.props.url, inputValues);
+    this.executeRequestor.post(this.props.url, inputValues)
+    .then(res => res.json())
+    .then(result => {
+      if (result.status) {
+        Swal.alertMessage("Sucesso!", "Registro com sucesso", "success");
+        this.props.list()
+      }else{
+        Swal.alertMessage("Erro!", result.msg, "warning");
+      }
+    });
   }
 
   render() {

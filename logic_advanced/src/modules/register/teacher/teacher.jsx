@@ -17,19 +17,26 @@ class RegisterTeacher extends Component {
     super(props);
     this.state = {
       list: [],
+      valoresEdicao: {},
     };
     this.dataUserLogged = LocalStorage.getStorage();
     this.requestExecutor = new Requestor();
   }
 
-  _listTeacher() {
+  _listTeacher(id = false) {
     this.requestExecutor
-      .get("professor")
+      .get(`professor${id === false ? "" : `?id_professor=${id}`}`)
       .then((res) => res.json())
       .then((result) => {
-        this.setState({
-          list: result.dados,
-        });
+        if (id != false) {
+          this.setState({
+            valoresEdicao: result.dados[0]
+          })
+        } else {
+          this.setState({
+            list: result.dados,
+          });
+        }
       })
       .catch((error) => console.log("error", error));
   }
@@ -53,7 +60,8 @@ class RegisterTeacher extends Component {
         },
         {},
         function (context) {
-          context.requestExecutor.delete(`professor${id === false ? "" : `?id_professor=${id}`}`)
+          context.requestExecutor
+            .delete(`professor${id === false ? "" : `?id_professor=${id}`}`)
             .then((res) => res.json())
             .then((result) => {
               if (result.status) {
@@ -70,10 +78,7 @@ class RegisterTeacher extends Component {
       Swal.alertMessage("Erro !", "ErroaAo deletar registro", "warning");
     }
   }
-
-  editTeacher() {
-    alert("ainda fazer");
-  }
+  
 
   componentDidMount() {
     this._listTeacher();
@@ -84,27 +89,36 @@ class RegisterTeacher extends Component {
       <form className="form-group">
         <input
           type="text"
+          value={this.state.valoresEdicao.descricao_professor || ''}
           className="elementos form-control mt-3"
           name="descricao_usuario"
           placeholder="Nome Completo"
+          onChange={(e) => {}}
         />
         <input
           type="text"
+          value={this.state.valoresEdicao.nick_usuario || ''}
           className="elementos form-control mt-3"
           name="nick_usuario"
           placeholder="Apelido"
+          onChange={(e) => {}}
         />
         <input
           type="email"
+          value={this.state.valoresEdicao.email_usuario || ''}
           className="elementos form-control mt-3"
           name="email_usuario"
           placeholder="Email"
+          onChange={(e) => {}}
+
         />
         <input
           type="password"
+          value={this.state.valoresEdicao.senha_usuario || ''}
           className="elementos form-control mt-3"
           name="senha_usuario"
           placeholder="Digite uma senha"
+          onChange={(e) => {}}
         />
       </form>
     );
@@ -117,13 +131,9 @@ class RegisterTeacher extends Component {
             btnName={<FontAwesomeIcon icon="user-plus" size="2x" />}
             title={"Cadastro de Professor"}
             body={bodyModal()}
+            list={this._listTeacher.bind(this)}
             url="professor"
           />
-          {/* <Modal
-                        token={this.dataUserLogged.token}  
-                        btnName={ <FontAwesomeIcon icon="user-plus" size="2x"/>}
-                        title="Cadastro de Professor"
-                    /> */}
         </div>
         <div className="content_wrapper flex-start overflow-auto">
           {this.state.list.map((item, i) => (
@@ -132,17 +142,11 @@ class RegisterTeacher extends Component {
                 content={item.descricao_professor}
                 id={item.id_professor}
                 key={item.id_professor}
+                imagem={item.imagem}
                 dataTarget="#staticBackdrop"
                 dataToggle="modal"
-                ClickDelete={this.deleteTeacher.bind(
-                  this,
-                  item.id_professor
-                )}
-                ClickList={this._listTeacher.bind(
-                  this,
-                  this.dataUserLogged.token,
-                  item.id_professor
-                )}
+                ClickDelete={this.deleteTeacher.bind(this, item.id_professor)}
+                ClickList={this._listTeacher.bind(this, item.id_professor)}
               />
             </Fragment>
           ))}

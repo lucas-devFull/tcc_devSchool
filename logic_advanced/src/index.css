@@ -52,7 +52,7 @@ code {
 .content_wrapper {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: flex-start;
   flex-direction: row;
   margin: 50px;
   height: 35em;

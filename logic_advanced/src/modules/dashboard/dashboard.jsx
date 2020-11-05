@@ -26,6 +26,7 @@ export default class Dashboard extends PureComponent {
                         <Card
                             content={'Nome da disciplina'}
                             id={''}
+                            imagem={false}
                             onClick={() => this.props.history.push('/conversations')}
                         />                   
                     </div>

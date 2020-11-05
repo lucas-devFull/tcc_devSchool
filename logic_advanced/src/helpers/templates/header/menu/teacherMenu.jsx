@@ -24,9 +24,9 @@ export const TeacherMenu = (props) => {
     return (
         <>
             <li className="nav-item">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" to="alunos">
                     <FontAwesomeIcon icon="user-graduate" />&nbsp;Alunos
-                </a>
+                </Link>
             </li>
             {
                 props.props.tipo === '0' ? <AdminMenu/> : ''
