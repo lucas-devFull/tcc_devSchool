@@ -4,9 +4,13 @@ import React from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+function enviaIdModal(e, id, callback) {
+  document.querySelectorAll("#modal")[0].setAttribute("data-id", id);
+  callback()
+}
 export const Card = ({
   content,
-  id,
+  id_modal,
   imagem,
   ClickList,
   ClickDelete,
@@ -20,9 +24,9 @@ export const Card = ({
           <FontAwesomeIcon icon="trash-alt" />
         </div>
         <div
-          onClick={ClickList}
-          className="component_card"
-          data-id={id}
+          onClick={(e) => (enviaIdModal(e, id_modal, ClickList))}
+          data-id={id_modal}
+          className="component_card card_modal"
           data-toggle={dataToggle}
           data-target={dataTarget}
         >

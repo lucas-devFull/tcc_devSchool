@@ -93,7 +93,14 @@ class RegisterTeacher extends Component {
           className="elementos form-control mt-3"
           name="descricao_usuario"
           placeholder="Nome Completo"
-          onChange={(e) => {}}
+          onChange={(e) => {this.setState({
+            valoresEdicao: {
+              descricao_professor: e.target.value,
+              nick_usuario: this.state.valoresEdicao.nick_usuario,
+              email_usuario: this.state.valoresEdicao.email_usuario,
+              senha_usuario: this.state.valoresEdicao.senha_usuario,
+            }
+          })}}
         />
         <input
           type="text"
@@ -101,7 +108,14 @@ class RegisterTeacher extends Component {
           className="elementos form-control mt-3"
           name="nick_usuario"
           placeholder="Apelido"
-          onChange={(e) => {}}
+          onChange={(e) => {this.setState({
+            valoresEdicao: {
+              descricao_professor: this.state.valoresEdicao.descricao_professor,
+              nick_usuario: e.target.value,
+              email_usuario: this.state.valoresEdicao.email_usuario,
+              senha_usuario: this.state.valoresEdicao.senha_usuario,
+            }
+          })}}
         />
         <input
           type="email"
@@ -109,7 +123,14 @@ class RegisterTeacher extends Component {
           className="elementos form-control mt-3"
           name="email_usuario"
           placeholder="Email"
-          onChange={(e) => {}}
+          onChange={(e) => {this.setState({
+            valoresEdicao: {
+              descricao_professor: this.state.valoresEdicao.descricao_professor,
+              nick_usuario: this.state.valoresEdicao.nick_usuario,
+              email_usuario: e.target.value,
+              senha_usuario: this.state.valoresEdicao.senha_usuario,
+            }
+          })}}
 
         />
         <input
@@ -118,7 +139,15 @@ class RegisterTeacher extends Component {
           className="elementos form-control mt-3"
           name="senha_usuario"
           placeholder="Digite uma senha"
-          onChange={(e) => {}}
+          onChange={(e) => {this.setState({
+            valoresEdicao: {
+              descricao_professor: this.state.valoresEdicao.descricao_professor,
+              nick_usuario: this.state.valoresEdicao.nick_usuario,
+              email_usuario: this.state.valoresEdicao.email_usuario,
+              senha_usuario: e.target.value
+            }
+          })}}
+
         />
       </form>
     );
@@ -140,13 +169,14 @@ class RegisterTeacher extends Component {
             <Fragment key={i}>
               <Card
                 content={item.descricao_professor}
-                id={item.id_professor}
+                id_modal={item.id_professor}
                 key={item.id_professor}
                 imagem={item.imagem}
                 dataTarget="#staticBackdrop"
                 dataToggle="modal"
                 ClickDelete={this.deleteTeacher.bind(this, item.id_professor)}
                 ClickList={this._listTeacher.bind(this, item.id_professor)}
+                dataWhatever={item.id_professor}
               />
             </Fragment>
           ))}

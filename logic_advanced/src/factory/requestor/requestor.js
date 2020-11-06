@@ -21,9 +21,8 @@ export  class Requestor{
     }
 
     post(urlP,formData){
-        let typeRequest = formData.get('id') === null ? 'POST' : 'PUT';
         let options = {
-            method: typeRequest,
+            method: "POST",
             headers: this.getHeaders(),
             body:formData
         }       

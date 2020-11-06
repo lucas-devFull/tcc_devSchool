@@ -18,13 +18,25 @@ export class Modal extends Component {
     this.setState({ selecionados });
   }
 
+  setNullValoresInput(){
+    document.querySelectorAll(".elementos").forEach((item) => {
+      item.value = "";
+    });
+    document.querySelectorAll("#modal")[0].setAttribute("data-id", "");
+  }
+
   handleSubmit() {
     let inputValues = new FormData();
+    let id_modal = document.querySelectorAll("#modal")[0].getAttribute("data-id");
     document.querySelectorAll(".elementos").forEach((item) => {
       if (item) {
         inputValues.append(item.getAttribute("name"), item.value);
       } else Swal.alertMessage("Erro!", "Preencha todos os campos", "error");
     });
+
+    if (id_modal) {
+      inputValues.append('id', id_modal)
+    }
     this.executeRequestor.post(this.props.url, inputValues)
     .then(res => res.json())
     .then(result => {
@@ -50,6 +62,7 @@ export class Modal extends Component {
           className="btn btn-light"
           data-toggle="modal"
           data-target="#staticBackdrop"
+          onClick={this.setNullValoresInput.bind()}
         >
           {btnName}
         </button>
@@ -62,7 +75,7 @@ export class Modal extends Component {
           aria-labelledby="staticBackdropLabel"
           aria-hidden="true"
         >
-          <div className="modal-dialog modal-lg">
+          <div className="modal-dialog modal-lg" id="modal" data-id="" >
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title" id="staticBackdropLabel">
