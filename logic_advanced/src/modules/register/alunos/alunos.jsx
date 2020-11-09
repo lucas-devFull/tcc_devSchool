@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import "@kenshooui/react-multi-select/dist/style.css";
-import MultiSelect from "@kenshooui/react-multi-select";
 import "./alunos.css";
 import "../register.css";
 import { withRouter } from "react-router-dom";
@@ -133,7 +131,7 @@ class RegisterAlunos extends Component {
             <Card
               content={item.descricao_usu_aluno}
               id={item.id_aluno}
-              imagem={false}
+              imagem={null}
               key={item.id_aluno}
               dataTarget="#staticBackdrop"
               dataToggle="modal"

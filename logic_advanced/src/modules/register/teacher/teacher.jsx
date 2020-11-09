@@ -162,6 +162,7 @@ class RegisterTeacher extends Component {
             body={bodyModal()}
             list={this._listTeacher.bind(this)}
             url="professor"
+            id_modal={"modal"}
           />
         </div>
         <div className="content_wrapper flex-start overflow-auto">

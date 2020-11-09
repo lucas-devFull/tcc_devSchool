@@ -5,11 +5,13 @@ import { TeacherMenu, StudentMenu } from "./menu/index";
 import { Link, withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ImgDefault from "../../../assets/user.jpg";
+import ModalPerfil from "./modal_perfil/modalPerfil"
+import imageCompression from 'browser-image-compression';
 
 class Header extends Component {
   constructor(props) {
     super(props);
-    this.imagem = ""
+    this.imagem = null
   }
 
   logout() {
@@ -28,6 +30,9 @@ class Header extends Component {
   render() {
     return (
       <>
+        <ModalPerfil 
+            imagem={this.imagem}
+        />
         <nav className="navbar navbar-expand-lg navbar-dark nav-bg">
           <a className="navbar-brand ml-3" href="#">
             Logic Advanced
@@ -55,8 +60,8 @@ class Header extends Component {
             </ul>
             <div className="botoes_sair_perfil">
               <div className="div_img_header">
-                <img className="img_header" src={ (this.imagem != "") ? "data:image/png;base64,"+this.imagem : ImgDefault} alt="" />
-              </div>
+                <img className="img_header" data-toggle="modal" data-target="#modalPerfil"  src={ (this.imagem != "") ? "data:image/png;base64,"+this.imagem : ImgDefault} alt="" />
+                </div>
               <button
                 className="btn btn-danger my-2 my-sm-0"
                 type="button"

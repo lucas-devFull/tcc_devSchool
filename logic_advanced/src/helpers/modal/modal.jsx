@@ -1,12 +1,9 @@
 import "./modal.css";
 import React, { Component } from "react";
 import "@kenshooui/react-multi-select/dist/style.css";
-import MultiSelect from "@kenshooui/react-multi-select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { Requestor } from "../../factory/requestor/requestor";
 import Swal from "../../helpers/swal/sawl";
-import { Example } from "../dragElements/multiSelect";
 
 export class Modal extends Component {
   constructor(props) {

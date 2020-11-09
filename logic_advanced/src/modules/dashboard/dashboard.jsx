@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import {Header} from '../../helpers/index';
 import Header from '../../helpers/templates/header/header';
 import {Card} from '../../helpers/index';
+import materiaCard from '../../assets/materiaCard.jpeg'
 
 export default class Dashboard extends PureComponent {
 
@@ -26,7 +27,7 @@ export default class Dashboard extends PureComponent {
                         <Card
                             content={'Nome da disciplina'}
                             id={''}
-                            imagem={false}
+                            imagem={null}
                             onClick={() => this.props.history.push('/conversations')}
                         />                   
                     </div>
