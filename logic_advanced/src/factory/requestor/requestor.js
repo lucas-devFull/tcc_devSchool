@@ -3,7 +3,7 @@ export  class Requestor{
 
     constructor(props){
         this.token = (props == undefined || props == null) ? true : false
-        this.baseURL = `http://127.0.0.1:82`;
+        this.baseURL = `http://127.0.0.1:89`;
         if (this.token) {
             this.dataUserLogged = LocalStorage.getStorage();
         }
