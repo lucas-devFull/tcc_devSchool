@@ -1,6 +1,5 @@
 import "./modal.css";
 import React, { Component } from "react";
-import "@kenshooui/react-multi-select/dist/style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Requestor } from "../../factory/requestor/requestor";
 import Swal from "../../helpers/swal/sawl";
@@ -11,9 +10,6 @@ export class Modal extends Component {
     this.executeRequestor = new Requestor();
   }
 
-  handleChange(selecionados) {
-    this.setState({ selecionados });
-  }
 
   setNullValoresInput(){
     document.querySelectorAll(".elementos").forEach((item) => {
@@ -23,34 +19,36 @@ export class Modal extends Component {
   }
 
   handleSubmit() {
-    let inputValues = new FormData();
-    let id_modal = document.querySelectorAll("#modal")[0].getAttribute("data-id");
-    document.querySelectorAll(".elementos").forEach((item) => {
-      if (item) {
-        inputValues.append(item.getAttribute("name"), item.value);
-      } else Swal.alertMessage("Erro!", "Preencha todos os campos", "error");
-    });
+    // let inputValues = new FormData();
+    // let id_modal = document.querySelectorAll("#modal")[0].getAttribute("data-id");
 
-    if (id_modal) {
-      inputValues.append('id', id_modal)
-    }
-    this.executeRequestor.post(this.props.url, inputValues)
-    .then(res => res.json())
-    .then(result => {
-      if (result.status) {
-        Swal.alertMessage("Sucesso!", "Registro com sucesso", "success");
-        this.props.list()
-      }else{
-        Swal.alertMessage("Erro!", result.msg, "warning");
-      }
-    });
+    let dados = this.props.getDadosForm();
+    console.log(dados);
+    // document.querySelectorAll(".elementos").forEach((item) => {
+    //   if (item) {
+    //     inputValues.append(item.getAttribute("name"), item.value);
+    //   } else Swal.alertMessage("Erro!", "Preencha todos os campos", "error");
+    // });
+
+    // if (id_modal) {
+    //   inputValues.append('id', id_modal)
+    // }
+    // this.executeRequestor.post(this.props.url, inputValues)
+    // .then(res => res.json())
+    // .then(result => {
+    //   if (result.status) {
+    //     Swal.alertMessage("Sucesso!", "Registro com sucesso", "success");
+    //     this.props.list()
+    //   }else{
+    //     Swal.alertMessage("Erro!", result.msg, "warning");
+    //   }
+    // });
   }
 
   render() {
     const {
       btnName,
       title,
-      body
     } = this.props;
     return (
       <div>
@@ -90,7 +88,7 @@ export class Modal extends Component {
                 </button>
               </div>
               <div className="modal-body">
-                {body}
+                {this.props.children}
               </div>
               <div className="modal-footer">
                 <button

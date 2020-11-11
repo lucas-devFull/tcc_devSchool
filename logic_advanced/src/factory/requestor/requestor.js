@@ -1,14 +1,19 @@
 import LocalStorage from '../../factory/storage/index';
 export  class Requestor{
 
-    constructor(){
+    constructor(props){
+        this.token = (props == undefined || props == null) ? true : false
         this.baseURL = `http://127.0.0.1:82`;
-        this.dataUserLogged = LocalStorage.getStorage();
+        if (this.token) {
+            this.dataUserLogged = LocalStorage.getStorage();
+        }
     }
-
+    
     getHeaders(){
         let myHeaders = new Headers();
-        myHeaders.append("Authorization", `${this.dataUserLogged.token}`);
+        if (this.token) {
+            myHeaders.append("Authorization", `${this.dataUserLogged.token}`);
+        }
         return myHeaders;
     }
 

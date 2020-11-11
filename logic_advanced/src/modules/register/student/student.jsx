@@ -5,8 +5,8 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 import Swal from '../../../helpers/swal/sawl';
-import RegisterUserStudent from './storage';
 import Logo from '../../../assets/logo.png';
+import { Requestor } from "../../../factory/requestor/requestor";
 
 export default class RegisterStudent extends React.Component {
 
@@ -19,6 +19,7 @@ export default class RegisterStudent extends React.Component {
             password: '',
             cpassword: ''
         };
+        this.requestExecutor = new Requestor(false);
     }
 
     onKeyDown(event){
@@ -48,12 +49,13 @@ export default class RegisterStudent extends React.Component {
         };
         
         if (validate) {
-            RegisterUserStudent.setUser({
-                name: name,
-                userName: userName,
-                email: email,
-                password: password,
-            })
+            let formData = new FormData()
+            formData.append("email_usuario",email)
+            formData.append("senha_usuario", password)
+            formData.append("nick_usuario", userName)
+            formData.append("descricao_usuario", name)
+
+            this.requestExecutor.post('usuario', formData)
             .then(response => response.json())
             .then(result => {
                 if (result.status == true) {

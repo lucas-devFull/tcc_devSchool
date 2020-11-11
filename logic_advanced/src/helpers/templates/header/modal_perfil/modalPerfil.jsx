@@ -18,7 +18,7 @@ class ModalPerfil extends Component {
 
   trocaImagem(imagem){
     console.log(imagem);
-
+    document.getElementsByClassName(".imagem_usuario")
     return console.log(document.querySelectorAll(".imagem_perfil")[0].setAttribute("src", imagem.name))
 
   }

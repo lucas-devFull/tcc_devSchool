@@ -7,8 +7,7 @@ import { toast, ToastContainer } from 'react-toastify';
 
 import Logo from '../../assets/logo.png';
 import LocalStorage from '../../factory/storage/index';
-
-import RequestLogin from './storage';
+import { Requestor } from "../../factory/requestor/requestor";
 
 class Login extends Component{
 
@@ -18,6 +17,7 @@ class Login extends Component{
             login:'',
             password:''
         }
+        this.requestExecutor = new Requestor(false);
     }
 
     onKeyDown(event){
@@ -29,10 +29,12 @@ class Login extends Component{
 
     handlesubmit(){
         const {login, password} = this.state;
-        RequestLogin.getAcess(login, password)
+        this.requestExecutor.get(`usuario?login=${login}&senha=${password}`, false)
+        // RequestLogin.getAcess(login, password)
             .then(res => res.json())
             .then(res =>{
                 if(res.status) {
+                    console.log("aqui");
                     LocalStorage.setStorage(res);
                     this.props.history.push('/dashboard');
                     console.log('Login => OK')

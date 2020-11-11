@@ -17,6 +17,9 @@ export default class Dashboard extends PureComponent {
         }
     }
 
+    componentWillMount(){
+    }
+
     render() {
         return (
             <>

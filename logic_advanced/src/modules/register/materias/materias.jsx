@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import "@kenshooui/react-multi-select/dist/style.css";
-import MultiSelect from "@kenshooui/react-multi-select";
 import "./materias.css";
 import "../register.css";
 import { withRouter } from "react-router-dom";
@@ -107,11 +105,6 @@ class RegisterMaterias extends Component {
             </div>
           </div>
         </div>
-        <MultiSelect
-          items={this.state.naoSelecionados}
-          selectedItems={this.state.selecionados}
-          showSelectAll={true}
-        />
       </div>
     );
   }

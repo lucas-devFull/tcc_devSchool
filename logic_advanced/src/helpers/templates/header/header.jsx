@@ -6,7 +6,6 @@ import { Link, withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ImgDefault from "../../../assets/user.jpg";
 import ModalPerfil from "./modal_perfil/modalPerfil"
-import imageCompression from 'browser-image-compression';
 
 class Header extends Component {
   constructor(props) {
