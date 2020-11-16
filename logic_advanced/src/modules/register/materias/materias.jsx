@@ -123,6 +123,7 @@ class RegisterMaterias extends Component {
             title={"Cadastro de Materias"}
             body={this._bodyModal()}
             url="Materias"
+            id_modal={'modal_materias'}
           />
         </div>
 

@@ -1,16 +1,19 @@
 import "./header.css";
 import React, { Component } from "react";
 import Storage from "../../../factory/storage/index";
-import { TeacherMenu, StudentMenu } from "./menu/index";
+import { TeacherMenu, StudentMenu, AdminMenu } from "./menu/index";
 import { Link, withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ImgDefault from "../../../assets/user.jpg";
-import ModalPerfil from "./modal_perfil/modalPerfil"
+import ModalPerfil from "./modal_perfil/modalPerfil";
 
 class Header extends Component {
   constructor(props) {
     super(props);
-    this.imagem = null
+    this.state = {
+      imageProfile: null,
+      typeUser: null
+    }
   }
 
   logout() {
@@ -18,19 +21,31 @@ class Header extends Component {
     Storage.clearStorage();
   }
 
+  typeUserRenderMenu(type) {
+     switch(type) {
+       case "0":
+         return <AdminMenu/>;
+       case "1":
+         return <TeacherMenu/>;
+       case "2":
+         return <StudentMenu/>;
+     }
+  }
+
+  renderImageProfile(imageProfile) {
+    return imageProfile ? `data:image/png;base64,${imageProfile}` : ImgDefault;
+  }
+
   componentDidMount() {
-    let typeUser = Storage.getStorage("dataUser");
-    this.imagem = typeUser.imagem
-    if (typeUser.tipo === "1" || typeUser.tipo === "0")
-      return <TeacherMenu props={typeUser} />;
-    else return <StudentMenu />;
+    let dataUser = Storage.getStorage("dataUser");
+    this.setState({ typeUser: dataUser.tipo, imageProfile: dataUser.imagem });
   }
 
   render() {
     return (
       <>
         <ModalPerfil 
-            imagem={this.imagem}
+            imagem={this.state.imagem}
         />
         <nav className="navbar navbar-expand-lg navbar-dark nav-bg">
           <a className="navbar-brand ml-3" href="#">
@@ -55,11 +70,11 @@ class Header extends Component {
                   &nbsp;Home
                 </Link>
               </li>
-              {this.componentDidMount()}
+              {this.typeUserRenderMenu(this.state.typeUser)}
             </ul>
             <div className="botoes_sair_perfil">
               <div className="div_img_header">
-                <img className="img_header" data-toggle="modal" data-target="#modalPerfil"  src={ (this.imagem != "") ? "data:image/png;base64,"+this.imagem : ImgDefault} alt="" />
+                <img className="img_header" data-toggle="modal" data-target="#modalPerfil"  src={this.renderImageProfile(this.state.imageProfile)} alt="" />
                 </div>
               <button
                 className="btn btn-danger my-2 my-sm-0"

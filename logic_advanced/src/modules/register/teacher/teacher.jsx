@@ -4,8 +4,6 @@ import "../register.css";
 import React, { Component, Fragment } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { withRouter } from "react-router-dom";
-
-// import {Modal} from './modal/modal';
 import { Card, Modal } from "../../../helpers/index";
 import LocalStorage from "../../../factory/storage/index";
 import Header from "../../../helpers/templates/header/header";
@@ -162,7 +160,7 @@ class RegisterTeacher extends Component {
             body={bodyModal()}
             list={this._listTeacher.bind(this)}
             url="professor"
-            id_modal={"modal"}
+            id_modal={"modal_teacher"}
           />
         </div>
         <div className="content_wrapper flex-start overflow-auto">

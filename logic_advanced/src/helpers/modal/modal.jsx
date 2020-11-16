@@ -12,43 +12,50 @@ export class Modal extends Component {
 
 
   setNullValoresInput(){
+    console.log(`#${this.props.id_modal}`)
     document.querySelectorAll(".elementos").forEach((item) => {
       item.value = "";
     });
-    document.querySelectorAll("#modal")[0].setAttribute("data-id", "");
   }
 
   handleSubmit() {
-    // let inputValues = new FormData();
-    // let id_modal = document.querySelectorAll("#modal")[0].getAttribute("data-id");
+    let inputValues = new FormData();
+    let id_modal = document.querySelector(`#${this.props.id_modal}`)[0].getAttribute("id");
+    document.querySelectorAll(".elementos").forEach((item) => {
+      if (item) {
+        inputValues.append(item.getAttribute("name"), item.value);
+      } else Swal.alertMessage("Erro!", "Preencha todos os campos", "error");
+    });
 
     let dados = this.props.getDadosForm();
     console.log(dados);
-    // document.querySelectorAll(".elementos").forEach((item) => {
-    //   if (item) {
-    //     inputValues.append(item.getAttribute("name"), item.value);
-    //   } else Swal.alertMessage("Erro!", "Preencha todos os campos", "error");
-    // });
+    document.querySelectorAll(".elementos").forEach((item) => {
+      if (item) {
+        inputValues.append(item.getAttribute("name"), item.value);
+      } else Swal.alertMessage("Erro!", "Preencha todos os campos", "error");
+    });
 
-    // if (id_modal) {
-    //   inputValues.append('id', id_modal)
-    // }
-    // this.executeRequestor.post(this.props.url, inputValues)
-    // .then(res => res.json())
-    // .then(result => {
-    //   if (result.status) {
-    //     Swal.alertMessage("Sucesso!", "Registro com sucesso", "success");
-    //     this.props.list()
-    //   }else{
-    //     Swal.alertMessage("Erro!", result.msg, "warning");
-    //   }
-    // });
+    if (id_modal) {
+      inputValues.append('id', id_modal)
+    }
+    this.executeRequestor.post(this.props.url, inputValues)
+    .then(res => res.json())
+    .then(result => {
+      if (result.status) {
+        Swal.alertMessage("Sucesso!", "Registro com sucesso", "success");
+        this.props.list()
+      }else{
+        Swal.alertMessage("Erro!", result.msg, "warning");
+      }
+    });
   }
 
   render() {
     const {
       btnName,
       title,
+      body,
+      id_modal
     } = this.props;
     return (
       <div>
@@ -56,21 +63,21 @@ export class Modal extends Component {
           type="button"
           className="btn btn-light"
           data-toggle="modal"
-          data-target="#staticBackdrop"
-          onClick={this.setNullValoresInput.bind()}
+          data-target={`#${id_modal}`}
+          onClick={() => this.setNullValoresInput()}
         >
           {btnName}
         </button>
         <div
           className="modal fade"
-          id="staticBackdrop"
+          id={id_modal}
           data-backdrop="static"
           data-keyboard="false"
           tabIndex={-1}
           aria-labelledby="staticBackdropLabel"
           aria-hidden="true"
         >
-          <div className="modal-dialog modal-lg" id="modal" data-id="" >
+          <div className="modal-dialog modal-lg" id={id_modal} data-id="">
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title" id="staticBackdropLabel">
@@ -88,7 +95,7 @@ export class Modal extends Component {
                 </button>
               </div>
               <div className="modal-body">
-                {this.props.children}
+                {body}
               </div>
               <div className="modal-footer">
                 <button
@@ -101,7 +108,7 @@ export class Modal extends Component {
                 <button
                   type="button"
                   className="btn btn-success"
-                  onClick={this.handleSubmit.bind(this)}
+                  onClick={() => this.handleSubmit.bind(this)}
                 >
                   Cadastar
                 </button>

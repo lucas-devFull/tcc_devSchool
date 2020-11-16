@@ -123,6 +123,7 @@ class RegisterAlunos extends Component {
             title={"Cadastro de Alunos"}
             body={this._bodyModal()}
             url="Alunos"
+            id_modal={'modal_alunos'}
           />
         </div>
 
