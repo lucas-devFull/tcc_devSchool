@@ -39,20 +39,25 @@ export class Accordion extends Component {
     }
 
     render() {
-        const { idMateria, index, idAccordion} = this.props;
+        const { idMateria, index, idAccordion,onClick} = this.props;
       
 
         return (
-            <div className="accordion mt-4" id={`accordion-${index}`}>
+            <div className="accordion mt-4" >
                 <div className="card" style={{ backgroundColor: '#284454' }}>
                     <div className="card-header" id={idMateria}>
                         <h2 className="mb-0">
-                            <button className="btn btn-block text-left" style={{ color: 'white', backgroundColor: '#233c4b', borderColor: '#2b5975' }} type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            <button 
+                                className="btn btn-block text-left" 
+                                style={{ color: 'white', backgroundColor: '#233c4b', borderColor: '#2b5975' }} 
+                                type="button" 
+                                onClick={onClick}
+                            >
                                 Collapsible Group Item #{idMateria}
                             </button>
                         </h2>
                     </div>
-                    <div id="collapseOne" className="collapse show" aria-labelledby={idMateria} data-parent={`accordion-${index}`}>
+                    <div id={`accordion-${index}`} className="collapse">
                         <div className="card-body ">
                             <div className="p-4 d-flex justify-content-end ">
                                 <Modal

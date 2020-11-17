@@ -230,9 +230,9 @@ class RegisterModulos extends Component {
             title={"Cadastro de Modulos"}
             url="Modulos"
             getDadosForm={this.getDataForm.bind(this)}
-          >
-            {this._bodyModal()}
-          </Modal>
+            id_modal={'modal_modulo'}
+            body={this._bodyModal()}
+          />
         </div>
 
         <div className="row row_card">
