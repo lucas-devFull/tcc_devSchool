@@ -13,14 +13,17 @@ export class Modal extends Component {
 
   setNullValoresInput(){
     console.log(`#${this.props.id_modal}`)
-    document.querySelectorAll(".elementos").forEach((item) => {
-      item.value = "";
-    });
+    document.querySelectorAll("#"+this.props.id_modal)[0].setAttribute("data-id", "");
+    this.props.clickNovoCadastro()
+
+    // document.querySelectorAll(".elementos").forEach((item) => {
+      // item.value = "";
+    // });
   }
 
   handleSubmit() {
-    let inputValues = new FormData();
-    let id_modal = document.querySelector(`#base_${this.props.id_modal}`).getAttribute("data-id");
+    // let inputValues = new FormData();
+    // let id_modal = document.querySelector(`#base_${this.props.id_modal}`).getAttribute("data-id");
     // document.querySelectorAll(".elementos").forEach((item) => {
       // if (item) {
         // inputValues.append(item.getAttribute("name"), item.value);
@@ -28,12 +31,7 @@ export class Modal extends Component {
     // });
 
     let dadosPost = this.props.getDadosForm();
-    console.log(dadosPost);
-    return ;
-    // if (id_modal) {
-      // inputValues.append('id', id_modal)
-    // }
-    this.executeRequestor.post(this.props.url, inputValues)
+    this.executeRequestor.post(this.props.url, dadosPost)
     .then(res => res.json())
     .then(result => {
       if (result.status) {
@@ -71,8 +69,9 @@ export class Modal extends Component {
           tabIndex={-1}
           aria-labelledby="staticBackdropLabel"
           aria-hidden="true"
+          data-id=""
         >
-          <div className="modal-dialog modal-lg" id={"base_"+id_modal} data-id="">
+          <div className="modal-dialog modal-lg" id={"base_"+id_modal} >
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title" id="staticBackdropLabel">

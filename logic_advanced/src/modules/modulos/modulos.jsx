@@ -18,7 +18,7 @@ class RegisterModulos extends Component {
       list: [],
       selecionados: [],
       naoSelecionados: [],
-      editaModulo: [],
+      valoresEdicao: {},
     };
     this.dataUserLogged = Storage.getStorage();
     this.requestExecutor = new Requestor();
@@ -58,18 +58,12 @@ class RegisterModulos extends Component {
       .then((result) => {
         if (result.status) {
           if (id) {
-            // let materias = this.listMaterias(result.materias);
             this.setState({
-              // selecionados: materias.selecionados,
-              // naoSelecionados: materias.naoSelecionados,
-              editaModulo: result.dados,
+              valoresEdicao: result.dados[0],
             });
           } else {
-            // let materias = this.listMaterias(result.materias);
             this.setState({
               list: result.dados,
-              // selecionados: [],
-              // naoSelecionados: materias.naoSelecionados,
             });
           }
         } else {
@@ -77,10 +71,6 @@ class RegisterModulos extends Component {
         }
       })
       .catch((error) => console.log("error", error));
-  }
-
-  setModulo(dados) {
-    Modulos.setModulo(this.dataUserLogged.token, dados);
   }
 
   onChange(value, { action, removedValue }) {
@@ -121,7 +111,7 @@ class RegisterModulos extends Component {
         },
         {},
         function (context) {
-          this.requestExecutor
+          context.requestExecutor
             .delete(`modulos${id === false ? "" : `?mod_id=${id}`}`)
             .then((res) => res.json())
             .then((result) => {
@@ -139,9 +129,30 @@ class RegisterModulos extends Component {
       Swal.alertMessage("Erro !", "ErroaAo deletar registro", "warning");
     }
   }
-  getDataForm(){
+  setDataForm() {
+    let id = document
+      .querySelector(`#modal_modulos`)
+      .getAttribute("data-id");
 
-    
+    if (!id) {
+      this.setState({
+        valoresEdicao: {},
+      });
+    }
+  }
+
+  getDataForm() {
+    let dadosFinais = new FormData();
+    let id = document
+      .querySelector(`#modal_modulos`)
+      .getAttribute("data-id");
+    dadosFinais.append("mod_desc", document.querySelectorAll("#mod_desc")[0].value);
+    dadosFinais.append("mod_inicial", (document.querySelectorAll("#mod_inicial")[0].checked) ? 1 : 0);
+    console.log(id);
+    if (id) {
+      dadosFinais.append("mod_id", id);
+    }
+    return dadosFinais;
   }
 
   _bodyModal() {
@@ -163,9 +174,19 @@ class RegisterModulos extends Component {
           <div className="col-md-8">
             <input
               type="text"
+              value={this.state.valoresEdicao.mod_desc || ""}
               className="elementos form-control mt-3"
-              name="descricao_modulo"
+              name="mod_desc"
+              id="mod_desc"
               placeholder="Descricao Modulo"
+              onChange={(e) => {
+                this.setState({
+                  valoresEdicao: {
+                    mod_desc: e.target.value,
+                    mod_inicial: this.state.valoresEdicao.mod_inicial,
+                  },
+                });
+              }}
             />
           </div>
 
@@ -174,12 +195,18 @@ class RegisterModulos extends Component {
               <input
                 type="checkbox"
                 className="custom-control-input elementos"
-                id="customControlAutosizing"
+                checked={(this.state.valoresEdicao.mod_inicial == 1) ? true : false}
+                id="mod_inicial"
+                onChange={(e) => {
+                  this.setState({
+                    valoresEdicao: {
+                      mod_desc: this.state.valoresEdicao.mod_desc,
+                      mod_inicial: e.target.checked,
+                    },
+                  });
+                }}
               />
-              <label
-                className="custom-control-label"
-                htmlFor="customControlAutosizing"
-              >
+              <label className="custom-control-label" htmlFor="mod_inicial">
                 Modulo Inicial
               </label>
             </div>
@@ -214,8 +241,8 @@ class RegisterModulos extends Component {
             body={this._bodyModal()}
             id_modal={"modal_modulos"}
             getDadosForm={this.getDataForm.bind(this)}
-            id_modal={'modal_modulo'}
-            body={this._bodyModal()}
+            list={this.listModulos.bind(this)}
+            clickNovoCadastro={this.setDataForm.bind(this)}
           />
         </div>
 
