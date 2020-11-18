@@ -4,18 +4,20 @@ import React from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function enviaIdModal(e, id, callback) {
-  document.querySelectorAll("#modal")[0].setAttribute("data-id", id);
+function enviaIdModal(e, id, callback, id_modal) {
+  console.log(id_modal);
+  document.querySelectorAll("#"+id_modal)[0].setAttribute("data-id", id);
   callback();
 }
 export const Card = ({
   content,
-  id_modal,
+  id,
   imagem,
   ClickList,
   ClickDelete,
   dataTarget,
   dataToggle,
+  id_modal
 }) => {
   return (
     <>
@@ -24,8 +26,8 @@ export const Card = ({
           <FontAwesomeIcon icon="trash-alt" />
         </div>
         <div 
-          onClick={(e) => enviaIdModal(e, id_modal, ClickList)}
-          data-id={id_modal}
+          onClick={(e) => enviaIdModal(e, id, ClickList, id_modal)}
+          data-id={id}
           className="component_card card_modal"
           data-toggle={dataToggle}
           data-target={dataTarget}

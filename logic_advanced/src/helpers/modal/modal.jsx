@@ -20,24 +20,19 @@ export class Modal extends Component {
 
   handleSubmit() {
     let inputValues = new FormData();
-    let id_modal = document.querySelector(`#${this.props.id_modal}`)[0].getAttribute("id");
-    document.querySelectorAll(".elementos").forEach((item) => {
-      if (item) {
-        inputValues.append(item.getAttribute("name"), item.value);
-      } else Swal.alertMessage("Erro!", "Preencha todos os campos", "error");
-    });
+    let id_modal = document.querySelector(`#base_${this.props.id_modal}`).getAttribute("data-id");
+    // document.querySelectorAll(".elementos").forEach((item) => {
+      // if (item) {
+        // inputValues.append(item.getAttribute("name"), item.value);
+      // } else Swal.alertMessage("Erro!", "Preencha todos os campos", "error");
+    // });
 
-    let dados = this.props.getDadosForm();
-    console.log(dados);
-    document.querySelectorAll(".elementos").forEach((item) => {
-      if (item) {
-        inputValues.append(item.getAttribute("name"), item.value);
-      } else Swal.alertMessage("Erro!", "Preencha todos os campos", "error");
-    });
-
-    if (id_modal) {
-      inputValues.append('id', id_modal)
-    }
+    let dadosPost = this.props.getDadosForm();
+    console.log(dadosPost);
+    return ;
+    // if (id_modal) {
+      // inputValues.append('id', id_modal)
+    // }
     this.executeRequestor.post(this.props.url, inputValues)
     .then(res => res.json())
     .then(result => {
@@ -77,7 +72,7 @@ export class Modal extends Component {
           aria-labelledby="staticBackdropLabel"
           aria-hidden="true"
         >
-          <div className="modal-dialog modal-lg" id={id_modal} data-id="">
+          <div className="modal-dialog modal-lg" id={"base_"+id_modal} data-id="">
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title" id="staticBackdropLabel">
@@ -108,7 +103,7 @@ export class Modal extends Component {
                 <button
                   type="button"
                   className="btn btn-success"
-                  onClick={() => this.handleSubmit.bind(this)}
+                  onClick={this.handleSubmit.bind(this)}
                 >
                   Cadastar
                 </button>

@@ -58,18 +58,18 @@ class RegisterModulos extends Component {
       .then((result) => {
         if (result.status) {
           if (id) {
-            let materias = this.listMaterias(result.materias);
+            // let materias = this.listMaterias(result.materias);
             this.setState({
-              selecionados: materias.selecionados,
-              naoSelecionados: materias.naoSelecionados,
+              // selecionados: materias.selecionados,
+              // naoSelecionados: materias.naoSelecionados,
               editaModulo: result.dados,
             });
           } else {
-            let materias = this.listMaterias(result.materias);
+            // let materias = this.listMaterias(result.materias);
             this.setState({
               list: result.dados,
-              selecionados: [],
-              naoSelecionados: materias.naoSelecionados,
+              // selecionados: [],
+              // naoSelecionados: materias.naoSelecionados,
             });
           }
         } else {
@@ -139,27 +139,9 @@ class RegisterModulos extends Component {
       Swal.alertMessage("Erro !", "ErroaAo deletar registro", "warning");
     }
   }
-// 
-  // getDataForm() {
-    // let arrayDados = []
-    // let dadosFinais = {}
-    // for (const i in this.state.selecionados) {
-        // arrayDados.push(this.state.selecionados[i].value) 
-    // }
-// 
-    // dadosFinais['mod_desc'] = document.querySelectorAll("#mod_desc")[0].value;
-    // dadosFinais['mod_inicial'] = document.querySelectorAll("#mod_inicial")[0].checked;
-    // dadosFinais['id_materia'] = arrayDados;
-    // return dadosFinais;
-  // }
   getDataForm(){
-    console.log(this.state.selecionados)
-    // console.log(this.state.selecionados)
-    let oi = document.getElementById("select_modulos")
 
-    console.log(oi);
-
-
+    
   }
 
   _bodyModal() {
@@ -204,7 +186,7 @@ class RegisterModulos extends Component {
           </div>
         </div>
         <div className="col-auto">
-          <Select
+          {/* <Select
             placeholder="Selecione uma matéria"
             noOptionsMessage={() => "Sem opções!"}
             styles={customStyles}
@@ -215,7 +197,7 @@ class RegisterModulos extends Component {
             classNamePrefix="select"
             onChange={this.onChange}
             id="select_modulos"
-          />
+          /> */}
         </div>
       </div>
     );
@@ -229,6 +211,8 @@ class RegisterModulos extends Component {
             btnName={<FontAwesomeIcon icon="user-plus" size="2x" />}
             title={"Cadastro de Modulos"}
             url="Modulos"
+            body={this._bodyModal()}
+            id_modal={"modal_modulos"}
             getDadosForm={this.getDataForm.bind(this)}
             id_modal={'modal_modulo'}
             body={this._bodyModal()}
@@ -239,14 +223,15 @@ class RegisterModulos extends Component {
           {this.state.list.map((item, index) => (
             <Card
               content={item.mod_desc}
-              id_modal={item.mod_id}
+              id={item.mod_id}
               key={index}
               imagem={null}
-              dataTarget="#staticBackdrop"
+              dataTarget="#modal_modulos"
               dataToggle="modal"
               ClickDelete={this.deleteModulo.bind(this, item.mod_id)}
               ClickList={this.listModulos.bind(this, item.mod_id)}
               dataWhatever={item.mod_id}
+              id_modal={"modal_modulos"}
             />
           ))}
         </div>
