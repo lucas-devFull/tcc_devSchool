@@ -92,35 +92,35 @@ class ModalPerfil extends Component {
                     <div className="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                       <input
                         type="text"
-                        value={this.dataUserLogged.descricao_usuario || ""}
+                        // value={this.dataUserLogged.descricao_usuario || ""}
                         className="modalPerfil form-control"
                         name="descricao_usuario"
                         placeholder="Nome Completo"
-                        onChange={(e) => {}}
+                        // onChange={(e) => {}}
                       />
                       <input
                         type="text"
-                        value={this.dataUserLogged.nick_usuario || ""}
+                        // value={this.dataUserLogged.nick_usuario || ""}
                         className="modalPerfil form-control"
                         name="nick_usuario"
                         placeholder="Apelido"
-                        onChange={(e) => {}}
+                        // onChange={(e) => {}}
                       />
-                      <input
+                      <input 
                         type="email"
-                        value={this.dataUserLogged.email_usuario || ""}
+                        // value={this.dataUserLogged.email_usuario || ""}
                         className="modalPerfil form-control"
                         name="email_usuario"
                         placeholder="Email"
-                        onChange={(e) => {}}
+                        // onChange={(e) => {}}
                       />
                       <input
                         type="password"
-                        value={this.dataUserLogged.senha_usuario || ""}
+                        // value={this.dataUserLogged.senha_usuario || ""}
                         className="modalPerfil form-control"
                         name="senha_usuario"
                         placeholder="Digite uma senha"
-                        onChange={(e) => {}}
+                        // onChange={(e) => {}}
                       />
                     </div>
                   </div>

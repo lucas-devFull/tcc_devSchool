@@ -12,7 +12,6 @@ export class Modal extends Component {
 
 
   setNullValoresInput(){
-    console.log(`#${this.props.id_modal}`)
     document.querySelectorAll("#"+this.props.id_modal)[0].setAttribute("data-id", "");
     this.props.clickNovoCadastro()
 

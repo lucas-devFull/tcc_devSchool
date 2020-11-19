@@ -34,10 +34,8 @@ class Login extends Component{
             .then(res => res.json())
             .then(res =>{
                 if(res.status) {
-                    // console.log("aqui");
                     LocalStorage.setStorage(res);
                     this.props.history.push('/dashboard');
-                    console.log('Login => OK')
                 }else{
                     document.querySelectorAll("input").forEach(function(e) {
                         e.classList.add("input-erro");

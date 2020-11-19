@@ -77,6 +77,27 @@ class RegisterTeacher extends Component {
     }
   }
   
+  setDataForm(){
+    this.setState({
+      valoresEdicao: {},
+    });
+  }
+
+  getDataForm() {
+    let dadosFinais = new FormData();
+    let id = document
+      .querySelector(`#modal_teacher`)
+      .getAttribute("data-id");
+      document.querySelectorAll(".elementos").forEach((item) => {
+        if (item) {
+          dadosFinais.append(item.getAttribute("name"), item.value);
+        } else Swal.alertMessage("Erro!", "Preencha todos os campos", "error");
+      });
+    if (id) {
+      dadosFinais.append("id_professor", id);
+    }
+    return dadosFinais;
+  }
 
   componentDidMount() {
     this._listTeacher();
@@ -161,6 +182,8 @@ class RegisterTeacher extends Component {
             list={this._listTeacher.bind(this)}
             url="professor"
             id_modal={"modal_teacher"}
+            clickNovoCadastro={this.setDataForm.bind(this)}
+            getDadosForm={this.getDataForm.bind(this)}
           />
         </div>
         <div className="content_wrapper flex-start overflow-auto">
@@ -168,14 +191,15 @@ class RegisterTeacher extends Component {
             <Fragment key={i}>
               <Card
                 content={item.descricao_professor}
-                id_modal={item.id_professor}
+                id={item.id_professor}
                 key={item.id_professor}
                 imagem={item.imagem}
-                dataTarget="#staticBackdrop"
+                dataTarget="#modal_teacher"
                 dataToggle="modal"
                 ClickDelete={this.deleteTeacher.bind(this, item.id_professor)}
                 ClickList={this._listTeacher.bind(this, item.id_professor)}
                 dataWhatever={item.id_professor}
+                id_modal={"modal_teacher"}
               />
             </Fragment>
           ))}

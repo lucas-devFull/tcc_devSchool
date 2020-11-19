@@ -84,8 +84,8 @@ class RegisterAlunos extends Component {
             <input
               type="text"
               className="elementos form-control mt-3"
-              name="descricao_modulo"
-              placeholder="Descricao Modulo"
+              name="descricao_usu_aluno"
+              placeholder="Descrição aluno"
             />
           </div>
 
@@ -124,6 +124,9 @@ class RegisterAlunos extends Component {
             body={this._bodyModal()}
             url="Alunos"
             id_modal={'modal_alunos'}
+            getDadosForm={() => {}}
+            list={this.listAlunos.bind(this)}
+            clickNovoCadastro={() => {}}
           />
         </div>
 
@@ -134,10 +137,12 @@ class RegisterAlunos extends Component {
               id={item.id_aluno}
               imagem={null}
               key={item.id_aluno}
-              dataTarget="#staticBackdrop"
+              dataTarget="#modal_alunos"
               dataToggle="modal"
               ClickDelete={this.deleteMateria.bind(this, item.id_aluno)}
               ClickList={this.listAlunos.bind(this, item.id_aluno)}
+              dataWhatever={item.mod_id}
+              id_modal={"modal_alunos"}
             />
           ))}
         </div>

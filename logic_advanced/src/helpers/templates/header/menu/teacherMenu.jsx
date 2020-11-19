@@ -16,6 +16,12 @@ export const AdminMenu = () => {
                     <FontAwesomeIcon icon="user-edit" />&nbsp;Gerenciar Modulos
                 </Link>
             </li>
+
+            <li className="nav-item">
+                <Link className="nav-link" to="classe">
+                    <FontAwesomeIcon icon="user-edit" />&nbsp;Gerenciar Classe
+                </Link>
+            </li>
         </>
     )
 }

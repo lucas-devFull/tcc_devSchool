@@ -5,7 +5,6 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function enviaIdModal(e, id, callback, id_modal) {
-  console.log(id_modal);
   document.querySelectorAll("#"+id_modal)[0].setAttribute("data-id", id);
   callback();
 }

@@ -77,7 +77,6 @@ class RegisterModulos extends Component {
     switch (action) {
       case "remove-value":
       case "pop-value":
-        console.log("eu");
         if (removedValue.isFixed) {
           return;
         }
@@ -211,20 +210,6 @@ class RegisterModulos extends Component {
               </label>
             </div>
           </div>
-        </div>
-        <div className="col-auto">
-          {/* <Select
-            placeholder="Selecione uma matéria"
-            noOptionsMessage={() => "Sem opções!"}
-            styles={customStyles}
-            isMulti
-            options={this.state.naoSelecionados}
-            value={this.state.selecionados}
-            className="basic-multi-select"
-            classNamePrefix="select"
-            onChange={this.onChange}
-            id="select_modulos"
-          /> */}
         </div>
       </div>
     );
