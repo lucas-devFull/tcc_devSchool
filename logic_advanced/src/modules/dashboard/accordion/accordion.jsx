@@ -9,7 +9,7 @@ export class Accordion extends Component {
         super(props);
     }
 
-    CardAula = (imagem, id) => {
+    CardAula = (imagem, id, nomeAula) => {
         return (
             <>
                 <div className="component_card m-2" onClick={() => { console.log('roi'); }}>
@@ -24,12 +24,12 @@ export class Accordion extends Component {
                                     />
                                 ) : (
                                         <i className="iconDash">
-                                            <FontAwesomeIcon icon="portrait" />
+                                            <FontAwesomeIcon icon="chalkboard-teacher" />
                                         </i>
                                     )}
                             </div>
                             <div className="descricao_card">
-                                <h3> {id}</h3>
+                                <h3> {nomeAula}</h3>
                             </div>
                         </div>
                     </div>
@@ -39,11 +39,11 @@ export class Accordion extends Component {
     }
 
     render() {
-        const { idMateria, index, idAccordion,onClick} = this.props;
+        const { idMateria,desc_materia, index, idAccordion,onClick} = this.props;
       
 
         return (
-            <div className="accordion mt-4" >
+            <div className="accordion mt-4" style={{ width: '90%' }}>
                 <div className="card" style={{ backgroundColor: '#284454' }}>
                     <div className="card-header" id={idMateria}>
                         <h2 className="mb-0">
@@ -53,7 +53,7 @@ export class Accordion extends Component {
                                 type="button" 
                                 onClick={onClick}
                             >
-                                Collapsible Group Item #{idMateria}
+                                {desc_materia}
                             </button>
                         </h2>
                     </div>
@@ -71,12 +71,12 @@ export class Accordion extends Component {
                                 />
                             </div>
                             <div className="d-flex flex-wrap">
-                                {this.CardAula(null, 1)}
-                                {this.CardAula(null, 2)}
-                                {this.CardAula(null, 3)}
-                                {this.CardAula(null, 4)}
-                                {this.CardAula(null, 5)}
-                                {this.CardAula(null, 6)}
+                                {this.CardAula(null, 1,'Aula 1')}
+                                {this.CardAula(null, 2,'Aula 2')}
+                                {this.CardAula(null, 3,'Aula 3')}
+                                {this.CardAula(null, 4,'Aula 4')}
+                                {this.CardAula(null, 5,'Aula 5')}
+                                {this.CardAula(null, 6,'Aula 6')}
                             </div>
                         </div>
                     </div>

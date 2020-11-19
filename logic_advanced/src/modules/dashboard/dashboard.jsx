@@ -9,7 +9,7 @@ import Header from '../../helpers/templates/header/header';
 import { Modal } from '../../helpers/index';
 import DashStorage from './storage';
 import { Accordion } from './accordion/accordion';
-import { Requestor } from "../../factory/requestor/requestor"; 
+import { Requestor } from "../../factory/requestor/requestor";
 
 export default class Dashboard extends PureComponent {
 
@@ -33,12 +33,10 @@ export default class Dashboard extends PureComponent {
             .catch(error => console.log(error));
 
         this.requestExecutor.get('modulos')
-        .then((res)=> res.json())
-        .then((res)=>{
-            res.dados.map(item =>{
-                console.log(item);
+            .then((res) => res.json())
+            .then((res) => {
+                this.setState({ naoSelecionados: res.dados })
             })
-        })
     }
 
     _onChange(value, { action, removedValue }) {
@@ -102,11 +100,11 @@ export default class Dashboard extends PureComponent {
             </div>
         );
     }
-    
+
     componentDidMount() {
         this.getAccordion();
     }
-    
+
     render() {
         const { materias } = this.state;
         return (
@@ -123,9 +121,8 @@ export default class Dashboard extends PureComponent {
                             id_modal={"modal_disciplina"}
                         />
                     </div>
-                    <div className="m-5 overflow-auto" style={{ height: "40em" }}>
+                    <div className="overflow-auto" className='align__subject'>
                         {
-
                             !materias
                                 ?
                                 <center>Nenhuma matéria encontrada</center>
@@ -135,14 +132,12 @@ export default class Dashboard extends PureComponent {
                                         key={i}
                                         index={i}
                                         idMateria={item.id_materias}
+                                        desc_materia={item.descricao_materia}
                                         onClick={() => {
                                             materias.forEach((itemFor, j) => {
-                                                console.log(itemFor);
-                                                console.log(item);
                                                 if (i !== j) $(`#accordion-${j}`).collapse('hide');
                                             });
                                             $(`#accordion-${i}`).collapse('show');
-                                            console.log($(`#accordion-${i}`));
                                         }}
                                     />
                                 )
