@@ -126,6 +126,7 @@ class RegisterTeacher extends Component {
           value={this.state.valoresEdicao.nick_usuario || ''}
           className="elementos form-control mt-3"
           name="nick_usuario"
+          maxLength="30"
           placeholder="Apelido"
           onChange={(e) => {this.setState({
             valoresEdicao: {
@@ -186,11 +187,11 @@ class RegisterTeacher extends Component {
             getDadosForm={this.getDataForm.bind(this)}
           />
         </div>
-        <div className="content_wrapper flex-start overflow-auto">
+        <div className="content_wrapper flex-start">
           {this.state.list.map((item, i) => (
             <Fragment key={i}>
               <Card
-                content={item.descricao_professor}
+                content={item.nick_usuario}
                 id={item.id_professor}
                 key={item.id_professor}
                 imagem={item.imagem}

@@ -9,8 +9,8 @@
 
 .component_card{
     cursor: pointer;
-    width: 15em;
-    height: 15em;
+    width: 20em;
+    height: 17em;
     display: flex;
     background-color: #303030;
     justify-content: center;
@@ -20,12 +20,12 @@
 }
 
 .component_card .iconDash{
-    width: 100%;
-    height: 1.4em;
+    /* width: 100%; */
+    /* height: 1.4em; */
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: center;
-    font-size: 60px;
+    font-size: 6em;
 }
 
 .component_card h3 { 
@@ -52,10 +52,6 @@
     margin-top: 1em;
 }
 
-.row_card{
-    padding: 2em;
-}
-
 .component_card:hover {
     outline: none !important;
 }
@@ -67,15 +63,26 @@
 
 .img_card{
     width: 100%;
+    height: 100%;
     border-radius: 6%;
 }
 
 .div_img_card{
-    width: 6em;
+    width: 100%;
+    height: 100%;
 }
 .descricao_card{
     text-align: center;
     line-break: anywhere;
-    width: 75%;
-    height: auto;
+    width: 100%;
+    height: 100%;
+}
+
+.div_box_img{
+    width: 7em;
+    height: 6em;
+}
+
+.box_descricao_card{
+    height: 4em;
 }

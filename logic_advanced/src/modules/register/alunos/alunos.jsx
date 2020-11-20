@@ -212,6 +212,7 @@ class RegisterAlunos extends Component {
               value={this.state.nick_usuario || ""}
               className="elementos form-control mt-3"
               name="nick_usuario"
+              maxLength="30"
               placeholder="Apelido"
               onChange={(e) => {
                 this.setState({
@@ -253,7 +254,7 @@ class RegisterAlunos extends Component {
     return (
       <div className="container__body">
         <Header />
-        <div className="p-4 d-flex justify-content-end ">
+        <div className=" row p-4 d-flex justify-content-end ">
           <Modal
             btnName={<FontAwesomeIcon icon="user-plus" size="2x" />}
             title={"Cadastro de Alunos"}
@@ -269,9 +270,9 @@ class RegisterAlunos extends Component {
         <div className="row row_card">
           {this.state.list.map((item) => (
             <Card
-              content={item.descricao_usu_aluno}
+              content={item.nick_usuario}
               id={item.id_aluno}
-              imagem={null}
+              imagem={item.imagem}
               key={item.id_aluno}
               dataTarget="#modal_alunos"
               dataToggle="modal"

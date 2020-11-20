@@ -21,7 +21,7 @@
 }
 
 .img_header{
-    width: auto;
+    width: 100%;
     height: 100%;
     border-radius: 100%;
     cursor: pointer;
@@ -33,8 +33,8 @@
 }
 
 .div_img_header{
-    width: 4.3em;
-    height: 3.5em;
+    width: 4em;
+    height: 3.6em;
     margin-right: 2em;
     border-radius: 100%;
 }
