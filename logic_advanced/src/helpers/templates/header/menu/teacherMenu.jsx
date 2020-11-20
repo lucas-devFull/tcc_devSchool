@@ -16,12 +16,6 @@ export const AdminMenu = () => {
                     <FontAwesomeIcon icon="user-edit" />&nbsp;Gerenciar Modulos
                 </Link>
             </li>
-
-            <li className="nav-item">
-                <Link className="nav-link" to="classe">
-                    <FontAwesomeIcon icon="user-edit" />&nbsp;Gerenciar Classe
-                </Link>
-            </li>
         </>
     )
 }
@@ -35,12 +29,12 @@ export const TeacherMenu = (props) => {
                 </Link>
             </li>
             {
-                props.props.tipo === '0' ? <AdminMenu/> : ''
+                props.tipo === '0' ? <AdminMenu/> : ''
             }
 
-             <li className="nav-item">
-                <Link className="nav-link" to="/materias">
-                    <FontAwesomeIcon icon="user-edit" />&nbsp;Gerenciar Materias
+            <li className="nav-item">
+                <Link className="nav-link" to="classe">
+                    <FontAwesomeIcon icon="user-edit" />&nbsp;Gerenciar Classe
                 </Link>
             </li>
         </>

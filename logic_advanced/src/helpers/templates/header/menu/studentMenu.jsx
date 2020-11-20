@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export const StudentMenu = () => {
     return (
         <>
-            <li className="nav-item">
+            {/* <li className="nav-item">
                 <a className="nav-link" href="#">
                     <FontAwesomeIcon icon="users" />&nbsp;Professores
                 </a>
@@ -15,7 +15,7 @@ export const StudentMenu = () => {
                 <a className="nav-link" href="#">
                     <FontAwesomeIcon icon="list-ul" />&nbsp;Exercícos Complementares
                 </a>
-            </li>
+            </li> */}
         </>
     )
 }

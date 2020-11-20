@@ -171,8 +171,9 @@ class RegisterClasse extends Component {
         });
       }
     }
-    valores["selecionados"] = valoresSelecionados;
-    valores["naoSelecionados"] = valoresNaoSelecionados;
+
+    valores["selecionados"] = (dados === "não tem dados") ? [] : valoresSelecionados;
+    valores["naoSelecionados"] = (dados === "não tem dados") ? [] : valoresNaoSelecionados;
     return valores;
   }
 
@@ -241,7 +242,7 @@ class RegisterClasse extends Component {
               className="elementos form-control mt-3"
               name="descricao_classe"
               id="descricao_classe"
-              placeholder="Descricao Modulo"
+              placeholder="Descricao Classe"
               onChange={(e) => {
                 this.setState({
                   valoresEdicao: {

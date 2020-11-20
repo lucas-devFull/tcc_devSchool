@@ -12,8 +12,8 @@ class Header extends Component {
     super(props);
     this.state = {
       imageProfile: null,
-      typeUser: null
-    }
+      typeUser: null,
+    };
   }
 
   logout() {
@@ -22,14 +22,13 @@ class Header extends Component {
   }
 
   typeUserRenderMenu(type) {
-     switch(type) {
-       case "0":
-         return <AdminMenu/>;
-       case "1":
-         return <TeacherMenu/>;
-       case "2":
-         return <StudentMenu/>;
-     }
+    switch (type) {
+      case "0":
+      case "1":
+        return <TeacherMenu tipo={type} />;
+      case "2":
+        return <StudentMenu />;
+    }
   }
 
   renderImageProfile(imageProfile) {
@@ -44,9 +43,7 @@ class Header extends Component {
   render() {
     return (
       <>
-        <ModalPerfil 
-            imagem={this.state.imagem}
-        />
+        <ModalPerfil imagem={this.state.imagem} />
         <nav className="navbar navbar-expand-lg navbar-dark nav-bg">
           <a className="navbar-brand ml-3" href="#">
             Logic Advanced
@@ -74,8 +71,14 @@ class Header extends Component {
             </ul>
             <div className="botoes_sair_perfil">
               <div className="div_img_header">
-                <img className="img_header" data-toggle="modal" data-target="#modalPerfil"  src={this.renderImageProfile(this.state.imageProfile)} alt="" />
-                </div>
+                <img
+                  className="img_header"
+                  data-toggle="modal"
+                  data-target="#modalPerfil"
+                  src={this.renderImageProfile(this.state.imageProfile)}
+                  alt=""
+                />
+              </div>
               <button
                 className="btn btn-danger my-2 my-sm-0"
                 type="button"

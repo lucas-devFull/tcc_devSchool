@@ -119,6 +119,8 @@ export default class Dashboard extends PureComponent {
                             list={''}
                             url="materias"
                             id_modal={"modal_disciplina"}
+                            clickNovoCadastro={() => {}}
+
                         />
                     </div>
                     <div className="overflow-auto" className='align__subject'>
