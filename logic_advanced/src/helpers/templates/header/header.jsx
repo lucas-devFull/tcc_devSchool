@@ -6,13 +6,19 @@ import { Link, withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ImgDefault from "../../../assets/user.jpg";
 import ModalPerfil from "./modal_perfil/modalPerfil";
+import Swal from "../../swal/sawl";
 
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
       imageProfile: null,
-      typeUser: null,
+      tipo_usuario: null,
+      descricao_usuario: null,
+      senha_usuario: null,
+      id_usuario: null,
+      email_usuario: null,
+      nick_usuario: null,
     };
   }
 
@@ -21,7 +27,7 @@ class Header extends Component {
     Storage.clearStorage();
   }
 
-  typeUserRenderMenu(type) {
+  tipo_usuarioRenderMenu(type) {
     switch (type) {
       case "0":
       case "1":
@@ -35,15 +41,97 @@ class Header extends Component {
     return imageProfile ? `data:image/png;base64,${imageProfile}` : ImgDefault;
   }
 
+  alterarUsuario() {
+    let dadosFinais = new FormData();
+    document.querySelectorAll(".modalPerfil").forEach((item) => {
+      if (item) {
+        dadosFinais.append(item.getAttribute("name"), item.value);
+      } else Swal.alertMessage("Erro!", "Preencha todos os campos", "error");
+    });
+    dadosFinais.append("id_usuario", this.state.id_usuario);
+    dadosFinais.append("tipo_usuario", this.state.tipo_usuario);
+    return dadosFinais;
+  }
+
   componentDidMount() {
     let dataUser = Storage.getStorage("dataUser");
-    this.setState({ typeUser: dataUser.tipo, imageProfile: dataUser.imagem });
+    console.log(dataUser);
+    this.setState({
+      imageProfile: dataUser.imagem,
+      tipo_usuario: dataUser.tipo,
+      descricao_usuario: dataUser.descricao_usuario,
+      senha_usuario: "",
+      id_usuario: dataUser.id,
+      email_usuario: dataUser.email_usuario,
+      nick_usuario: dataUser.nick_usuario,
+    });
+  }
+
+  bodyModal() {
+    return (
+      <div className="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+        <input
+          type="text"
+          value={this.state.descricao_usuario || ""}
+          className="modalPerfil form-control"
+          name="descricao_usuario"
+          placeholder="Nome Completo"
+          onChange={(e) =>
+            this.setState({
+              descricao_usuario: e.target.value,
+            })
+          }
+        />
+        <input
+          type="text"
+          value={this.state.nick_usuario || ""}
+          className="modalPerfil form-control"
+          name="nick_usuario"
+          placeholder="Apelido"
+          onChange={(e) =>
+            this.setState({
+              nick_usuario: e.target.value,
+            })
+          }
+        />
+        <input
+          type="email"
+          value={this.state.email_usuario || ""}
+          className="modalPerfil form-control"
+          name="email_usuario"
+          placeholder="Email"
+          onChange={(e) =>
+            this.setState({
+              email_usuario: e.target.value,
+            })
+          }
+        />
+        <input
+          type="password"
+          value={this.state.senha_usuario || ""}
+          className="modalPerfil form-control"
+          name="senha_usuario"
+          placeholder="Preencha se quiser redefinir senha"
+          onChange={(e) =>
+            this.setState({
+              senha_usuario: e.target.value,
+            })
+          }
+        />
+      </div>
+    );
   }
 
   render() {
     return (
       <>
-        <ModalPerfil imagem={this.state.imagem} />
+        <ModalPerfil
+          imagem={this.state.imagem}
+          body={this.bodyModal()}
+          dadosForm={this.alterarUsuario.bind(this)}
+          logout={this.logout.bind(this)}
+        />
+
         <nav className="navbar navbar-expand-lg navbar-dark nav-bg">
           <a className="navbar-brand ml-3" href="#">
             Logic Advanced
@@ -67,7 +155,7 @@ class Header extends Component {
                   &nbsp;Home
                 </Link>
               </li>
-              {this.typeUserRenderMenu(this.state.typeUser)}
+              {this.tipo_usuarioRenderMenu(this.state.tipo_usuario)}
             </ul>
             <div className="botoes_sair_perfil">
               <div className="div_img_header">

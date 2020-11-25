@@ -13,6 +13,7 @@
 }
 
 .modalPerfil{
+   z-index: 99999;
    margin: 1.5em 0em 2.5em 0em !important;
 }
 

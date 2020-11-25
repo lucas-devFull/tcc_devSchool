@@ -237,7 +237,7 @@ class RegisterAlunos extends Component {
               value={this.state.senha_usuario || ""}
               className="elementos form-control mt-3"
               name="senha_usuario"
-              placeholder="Digite uma senha"
+              placeholder="Preencha se quiser redefinir senha"
               onChange={(e) => {
                 this.setState({
                   senha_usuario: e.target.value,

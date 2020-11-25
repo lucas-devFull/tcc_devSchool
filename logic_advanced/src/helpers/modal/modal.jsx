@@ -13,28 +13,16 @@ export class Modal extends Component {
 
   setNullValoresInput(){
     document.querySelectorAll("#"+this.props.id_modal)[0].setAttribute("data-id", "");
-    this.props.clickNovoCadastro()
-
-    // document.querySelectorAll(".elementos").forEach((item) => {
-      // item.value = "";
-    // });
+    this.props.clickNovoCadastro();
   }
 
   handleSubmit() {
-    // let inputValues = new FormData();
-    // let id_modal = document.querySelector(`#base_${this.props.id_modal}`).getAttribute("data-id");
-    // document.querySelectorAll(".elementos").forEach((item) => {
-      // if (item) {
-        // inputValues.append(item.getAttribute("name"), item.value);
-      // } else Swal.alertMessage("Erro!", "Preencha todos os campos", "error");
-    // });
-
     let dadosPost = this.props.getDadosForm();
     this.executeRequestor.post(this.props.url, dadosPost)
     .then(res => res.json())
     .then(result => {
       if (result.status) {
-        Swal.alertMessage("Sucesso!", "Registro com sucesso", "success");
+        Swal.alertMessage("Sucesso!", "Registro com sucesso", "success", "", {Ok: { className: "button_info" }});
         this.props.list()
       }else{
         Swal.alertMessage("Erro!", result.msg, "warning");

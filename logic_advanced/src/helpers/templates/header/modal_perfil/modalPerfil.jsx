@@ -16,11 +16,41 @@ class ModalPerfil extends Component {
     this.requestExecutor = new Requestor();
   }
 
-  trocaImagem(imagem){
-    console.log(imagem);
-    document.getElementsByClassName(".imagem_usuario")
-    return console.log(document.querySelectorAll(".imagem_perfil")[0].setAttribute("src", imagem.name))
+  ImagePreview() {
+    var preview = document.querySelector(".imagem_perfil");
+    var file = document.querySelector("#img_usuario").files[0];
+    var reader = new FileReader();
 
+    reader.addEventListener(
+      "load",
+      function () {
+        preview.src = reader.result;
+      },
+      false
+    );
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  }
+
+  async logout(){
+    document.querySelector("#fecharModal").click(function(){})
+    this.props.logout()
+  }
+
+  handleSubmit() {
+    let dados = this.props.dadosForm();
+    dados.append("imagem_usuario", document.querySelector("#img_usuario").files[0])
+    this.requestExecutor.post("usuario", dados)
+    .then(res => res.json())
+    .then(result => {
+      if (result.status) {
+        Swal.alertMessage("Sucesso!", "Alterações feitas com sucesso", "success", "", {Ok: { className: "button_info" }}, {}, this.logout.bind(this));
+      }else{
+        Swal.alertMessage("Erro!", result.msg, "warning");
+      }
+    });
   }
 
   render() {
@@ -74,7 +104,7 @@ class ModalPerfil extends Component {
                             />
                           </div>
                           <div className="input_imagem_usuario">
-                            <span className="file_imagem" >
+                            <span className="file_imagem">
                               <FontAwesomeIcon icon="camera" />
                             </span>
                             <input
@@ -82,47 +112,14 @@ class ModalPerfil extends Component {
                               name=""
                               id="img_usuario"
                               accept="image/*"
-                              onChange={(e) => this.trocaImagem(e.target.files[0])}
+                              onChange={(e) => this.ImagePreview()}
                             />
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    <div className="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                      <input
-                        type="text"
-                        // value={this.dataUserLogged.descricao_usuario || ""}
-                        className="modalPerfil form-control"
-                        name="descricao_usuario"
-                        placeholder="Nome Completo"
-                        // onChange={(e) => {}}
-                      />
-                      <input
-                        type="text"
-                        // value={this.dataUserLogged.nick_usuario || ""}
-                        className="modalPerfil form-control"
-                        name="nick_usuario"
-                        placeholder="Apelido"
-                        // onChange={(e) => {}}
-                      />
-                      <input 
-                        type="email"
-                        // value={this.dataUserLogged.email_usuario || ""}
-                        className="modalPerfil form-control"
-                        name="email_usuario"
-                        placeholder="Email"
-                        // onChange={(e) => {}}
-                      />
-                      <input
-                        type="password"
-                        // value={this.dataUserLogged.senha_usuario || ""}
-                        className="modalPerfil form-control"
-                        name="senha_usuario"
-                        placeholder="Digite uma senha"
-                        // onChange={(e) => {}}
-                      />
-                    </div>
+                    {this.props.body}
                   </div>
                 </div>
               </div>
@@ -131,13 +128,14 @@ class ModalPerfil extends Component {
                   type="button"
                   className="btn btn-secondary"
                   data-dismiss="modal"
+                  id="fecharModal"
                 >
                   Fechar
                 </button>
                 <button
                   type="button"
                   className="btn btn-success"
-                  //   onClick={this.handleSubmit.bind(this)}
+                  onClick={this.handleSubmit.bind(this)}
                 >
                   Salvar Alterações
                 </button>
