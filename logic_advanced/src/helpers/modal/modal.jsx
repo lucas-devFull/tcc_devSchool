@@ -91,7 +91,7 @@ export class Modal extends Component {
                   className="btn btn-success"
                   onClick={this.handleSubmit.bind(this)}
                 >
-                  Cadastar
+                  {(this.props.btnFinalizar == null) ? "Cadastrar" : this.props.btnFinalizar}
                 </button>
               </div>
             </div>

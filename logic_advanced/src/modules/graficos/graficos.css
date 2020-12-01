@@ -1,0 +1,22 @@
+.div_antes_grafico{
+    text-align: center;
+}
+
+.div_grafico{
+    padding: 1em 1em;
+    height: 100%;
+    width: 100%;
+    /* margin-top: 3em; */
+}
+
+.div_box_grafico{
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+
+.box_grafico{
+    width: 100%;
+    height: 35em;
+    padding: 2em;
+}

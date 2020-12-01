@@ -37,6 +37,12 @@ export const TeacherMenu = (props) => {
                     <FontAwesomeIcon icon="user-edit" />&nbsp;Gerenciar Classe
                 </Link>
             </li>
+
+            <li className="nav-item">
+                <Link className="nav-link" to="grafico">
+                    <FontAwesomeIcon icon="chart-bar" />&nbsp; Gráficos
+                </Link>
+            </li>
         </>
     )
 }
