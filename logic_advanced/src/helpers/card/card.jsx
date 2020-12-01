@@ -1,8 +1,7 @@
 import "./card.css";
-
 import React from "react";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import LocalStorage from '../../factory/storage/index';
 
 function enviaIdModal(e, id, callback, id_modal) {
   document.querySelectorAll("#" + id_modal)[0].setAttribute("data-id", id);
@@ -21,9 +20,14 @@ export const Card = ({
   return (
     <>
       <div className="col-auto col_padrao">
-        <div className="btn_delete_card" onClick={ClickDelete}>
-          <FontAwesomeIcon icon="trash-alt" />
-        </div>
+        {
+					LocalStorage.getStorage().tipo === '0' ?
+						<div className="btn_delete_card" onClick={ClickDelete}>
+							<FontAwesomeIcon icon="trash-alt" />
+						</div>
+					:
+						''
+				}
         <div 
           onClick={(e) => enviaIdModal(e, id, ClickList, id_modal)}
           data-id={id}

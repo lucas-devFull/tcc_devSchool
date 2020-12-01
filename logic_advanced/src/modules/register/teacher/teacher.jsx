@@ -176,16 +176,21 @@ class RegisterTeacher extends Component {
       <div className="container__body">
         <Header />
         <div className="p-4 d-flex justify-content-end ">
-          <Modal
-            btnName={<FontAwesomeIcon icon="user-plus" size="2x" />}
-            title={"Cadastro de Professor"}
-            body={bodyModal()}
-            list={this._listTeacher.bind(this)}
-            url="professor"
-            id_modal={"modal_teacher"}
-            clickNovoCadastro={this.setDataForm.bind(this)}
-            getDadosForm={this.getDataForm.bind(this)}
-          />
+          {
+            this.dataUserLogged.tipo == 0 ?
+              <Modal
+                btnName={<FontAwesomeIcon icon="user-plus" size="2x" />}
+                title={"Cadastro de Professor"}
+                body={bodyModal()}
+                list={this._listTeacher.bind(this)}
+                url="professor"
+                id_modal={"modal_teacher"}
+                clickNovoCadastro={this.setDataForm.bind(this)}
+                getDadosForm={this.getDataForm.bind(this)}
+              />
+              :
+                ''
+          }          
         </div>
         <div className="content_wrapper flex-start">
           {this.state.list.map((item, i) => (
