@@ -22,10 +22,16 @@ export class Modal extends Component {
     .then(res => res.json())
     .then(result => {
       if (result.status) {
-        Swal.alertMessage("Sucesso!", "Registro com sucesso", "success", "", {Ok: { className: "button_info" }});
-        this.props.list()
+        Swal.alertMessage("Sucesso!", "Informações recebidas com sucesso", "success", "", {Ok: { className: "button_info" }});
+        if(this.props.list != null){
+          this.props.list()
+        }
+
+        if(this.props.callback != null){
+          this.props.callback(result.dados)
+        }
       }else{
-        Swal.alertMessage("Erro!", result.msg, "warning");
+        Swal.alertMessage("Atenção!", result.msg, "warning", "", {Ok: { className: "button_info" }});
       }
     });
   }

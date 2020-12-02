@@ -126,7 +126,7 @@ class Header extends Component {
     return (
       <>
         <ModalPerfil
-          imagem={this.state.imagem}
+          imagem={this.renderImageProfile(this.state.imageProfile)}
           body={this.bodyModal()}
           dadosForm={this.alterarUsuario.bind(this)}
           logout={this.logout.bind(this)}

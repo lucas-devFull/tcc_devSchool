@@ -5,6 +5,8 @@ import { Requestor } from "../../../../factory/requestor/requestor";
 import Swal from "../../../../helpers/swal/sawl";
 import LocalStorage from "../../../../factory/storage/index";
 import { Link, withRouter } from "react-router-dom";
+import ImgDefault from "../../../../assets/user.jpg";
+
 
 class ModalPerfil extends Component {
   constructor(props) {
@@ -94,12 +96,15 @@ class ModalPerfil extends Component {
                       <div className="margin">
                         <div className="panel panel-default">
                           <div className="imagem_usuario">
+                            {console.log(this.props.imagem)}
                             <img
                               className="imagem_perfil"
-                              src={
-                                "data:image/png;base64," +
-                                this.dataUserLogged.imagem
-                              }
+                              src={this.props.imagem}
+
+                              // src={
+                              //   "data:image/png;base64," +
+                              //   this.dataUserLogged.imagem
+                              // }
                               alt=" Perfil Usuário"
                             />
                           </div>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import Select from "react-select";
+import Select from "react-select";
 import "./graficos.css";
 import "../register/register.css";
 import { withRouter } from "react-router-dom";
@@ -10,173 +10,226 @@ import Storage from "../../factory/storage/index";
 import Swal from "../../helpers/swal/sawl";
 import { Requestor } from "../../factory/requestor/requestor";
 import Chart from "react-google-charts";
-import Select from "../../helpers/select/select";
+// import Select from "../../helpers/select/select";
 
 class Graficos extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      classesSelecionados: [],
       classesNaoSelecionados: [],
-      valoresFiltros: [],
+      materiasNaoSelecionados: [],
+      moduloNaoSelecionados: [],
+      moduloSelecionados: [],
+      materiasSelecionadas: [],
+      classesSelecionados: [],
+      aulasSelecionadas: [],
+      aulaNaoSelecionados: [],
+      dataGraficos: [],
     };
     this.dataUserLogged = Storage.getStorage();
     this.requestExecutor = new Requestor();
-    this.onChange = this.onChange.bind(this);
   }
 
-  listMaterias(dados) {
-    let materiasSelecionadas = [];
-    let materiasNaoSelecionadas = [];
+  formataValores(dados, id) {
+    // let selecionados = [];
+    let naoSelecionados = [];
     let retorno = {};
 
     for (const i in dados) {
-      if (dados[i].id_modulo != null) {
-        materiasSelecionadas.push({
-          value: dados[i].id_materia,
-          label: dados[i].descricao_materia,
-        });
+      switch (id) {
+        case "modulos":
+          naoSelecionados.push({
+            value: dados[i].mod_id,
+            label: dados[i].mod_desc,
+          });
+          break;
+        case "materias":
+          naoSelecionados.push({
+            value: dados[i].id_materia,
+            label: dados[i].descricao_materia,
+          });
+          break;
+        case "classe":
+          naoSelecionados.push({
+            value: dados[i].id_classe,
+            label: dados[i].descricao_classe,
+          });
+          break;
+        case "aula":
+          naoSelecionados.push({
+            value: dados[i].aula_id,
+            label: dados[i].aula_descricao,
+          });
+          break;
       }
-      materiasNaoSelecionadas.push({
-        value: dados[i].id_materia,
-        label: dados[i].descricao_materia,
-      });
     }
-    retorno["naoSelecionados"] = materiasNaoSelecionadas;
-    retorno["selecionados"] = materiasSelecionadas;
-    return retorno;
+
+    // retorno["naoSelecionados"] = naoSelecionados;
+    // retorno["selecionados"] = [];
+    return naoSelecionados;
   }
 
-  listModulos(id = false) {
+  list(url, selecao) {
     this.requestExecutor
-      .get(`modulos`)
+      .get(url)
       .then((res) => res.json())
       .then((result) => {
-        if (id) {
-          // this.setState({
-            // valoresEdicao: dados[0],
-          // });
-        } else {
-          // this.setState({
-            // list: dados,
-          // });
+        if (result.status) {
+          switch (selecao) {
+            case "modulos":
+              this.setState({
+                moduloNaoSelecionados: this.formataValores(
+                  result.dados,
+                  "modulos"
+                ),
+                moduloSelecionados: [],
+                materiasSelecionadas: [],
+                aulasSelecionadas: [],
+                classesSelecionados: [],
+                materiasNaoSelecionados: [],
+                classesNaoSelecionados: [],
+                aulaNaoSelecionados: [],
+              });
+              break;
+            case "classe":
+              this.setState({
+                classesNaoSelecionados: this.formataValores(
+                  result.dados,
+                  "classe"
+                ),
+              });
+              break;
+            case "materias":
+              this.setState({
+                materiasNaoSelecionados: this.formataValores(
+                  result.dados,
+                  "materias"
+                ),
+                materiasSelecionadas: [],
+              });
+              break;
+            case "aula":
+              this.setState({
+                aulaNaoSelecionados: this.formataValores(result.dados, "aula"),
+              });
+              break;
+          }
         }
-        Swal.alertMessage("Erro!", result.message, "error");
       })
       .catch((error) => console.log("error", error));
   }
 
-  onChange(value, { action, removedValue }) {
-    switch (action) {
-      case "remove-value":
-      case "pop-value":
-        if (removedValue.isFixed) {
-          return;
-        }
-        break;
-      case "clear":
-        this.setState({
-          selecionados: [],
-        });
-        break;
-    }
-
-    this.setState({ selecionados: value });
-  }
-
-  deleteModulo(id) {
-    if (id > 0) {
-      Swal.alertMessage(
-        "Atenção!",
-        "Voce deseja realmente excluir estes registros?",
-        "warning",
-        "",
-        {
-          Não: {
-            closeModal: true,
-            className: "button_red",
-          },
-          Sim: {
-            closeModal: false,
-            className: "button_info",
-          },
-        },
-        {},
-        function (context) {
-          context.requestExecutor
-            .delete(`modulos${id === false ? "" : `?mod_id=${id}`}`)
-            .then((res) => res.json())
-            .then((result) => {
-              if (result.status) {
-                Swal.alertMessage("Sucesso !", result.msg, "success", "", {
-                  Ok: { className: "button_info" },
-                });
-                context.listModulos();
-              }
-            });
-        },
-        this
-      );
-    } else {
-      Swal.alertMessage("Erro !", "ErroaAo deletar registro", "warning");
-    }
+  montaGrafico(dados) {
+    this.setState({
+      dataGraficos: dados,
+    });
   }
   setDataForm() {
-    let id = document.querySelector(`#modal_graficos`).getAttribute("data-id");
-
-    if (!id) {
-      this.setState({
-        classesSelecionados: {},
-        classesNaoSelecionados: {},
-      });
-    }
+    this.list("modulos", "modulos");
   }
 
   getDataForm() {
     let dadosFinais = new FormData();
-    let id = document.querySelector(`#modal_graficos`).getAttribute("data-id");
+    dadosFinais.append("mod_id", this.state.moduloSelecionados.value);
+    dadosFinais.append("id_classe", this.state.classesSelecionados.value);
+    dadosFinais.append("id_materia", this.state.materiasSelecionadas.value);
+    dadosFinais.append("aula_id_materia", this.state.aulasSelecionadas.value);
     return dadosFinais;
   }
 
-  listClasses() {
-    this.requestExecutor
-      .get("classe")
-      .then((res) => res.json())
-      .then((result) => {
-        // this.setState({
-        // classesSelecionados
-        // })
-      });
-  }
-
   _bodyModal() {
+    const customStyles = {
+      option: (provided, state) => ({
+        ...provided,
+        color: state.isSelected ? "white" : "black",
+        backgroundColor: state.isSelected ? "black" : null,
+        padding: 5,
+      }),
+    };
     return (
       <div className="form-group">
         <div className="row">
-          <div className="col-md-12 mt-4">
-            <small id="emailHelp" className="form-text text-light">
-              {" "}
-              * Campo obrigatório{" "}
-            </small>
+          <div className="col-md-12">
             <Select
-              placeholder={"Selecione os Modulos"}
-              id_name="select_modulos"
-              name="Modulos"
+              placeholder="Selecione os Modulos"
+              noOptionsMessage={() => "Sem opções!"}
+              styles={customStyles}
+              options={this.state.moduloNaoSelecionados}
+              value={this.state.moduloSelecionados}
+              className="basic-multi-select"
+              classNamePrefix="select"
+              onChange={(value) => (
+                this.setState({
+                  moduloSelecionados: value,
+                  classesNaoSelecionados: [],
+                  materiasNaoSelecionados: [],
+                  materiasSelecionadas: [],
+                  classesSelecionados: [],
+                  aulasSelecionadas: [],
+                  aulaNaoSelecionados: [],
+                }),
+                this.list(
+                  `materias/materiasPorModulo?mod_id=${value.value}`,
+                  "materias"
+                )
+              )}
+              name="modulos"
+              id="select_modulos"
             />
           </div>
 
           <div className="col-md-12 mt-4">
             <Select
-              placeholder={"Selecione as Matérias"}
-              id_name="select_moaterias"
-              name="materias"
+              placeholder="Selecione as Matérias"
+              noOptionsMessage={() => "Sem opções!"}
+              styles={customStyles}
+              options={this.state.materiasNaoSelecionados}
+              value={this.state.materiasSelecionadas}
+              className="basic-multi-select"
+              classNamePrefix="select"
+              onChange={(value) => (
+                this.setState({
+                  materiasSelecionadas: value,
+                  classesNaoSelecionados: [],
+                  classesSelecionados: [],
+                  aulasSelecionadas: [],
+                  aulaNaoSelecionados: [],
+                }),
+                this.list(
+                  `materias/aulaPorMateria?aula_id_materia=${value.value}`,
+                  "aula"
+                ),
+                this.list(
+                  `materias/classePorMateria?id_materia=${value.value}`,
+                  "classe"
+                )
+              )}
             />
           </div>
           <div className="col-md-12 mt-4">
             <Select
-              placeholder={"Selecione as classes"}
-              id_name="select_classes"
-              name="classes"
+              placeholder="Selecione as Atividades"
+              noOptionsMessage={() => "Sem opções!"}
+              styles={customStyles}
+              options={this.state.aulaNaoSelecionados}
+              value={this.state.aulasSelecionadas}
+              className="basic-multi-select"
+              classNamePrefix="select"
+              onChange={(value) => this.setState({ aulasSelecionadas: value })}
+            />
+          </div>
+          <div className="col-md-12 mt-4">
+            <Select
+              placeholder="Selecione as Classes"
+              noOptionsMessage={() => "Sem opções!"}
+              styles={customStyles}
+              options={this.state.classesNaoSelecionados}
+              value={this.state.classesSelecionados}
+              className="basic-multi-select"
+              classNamePrefix="select"
+              onChange={(value) =>
+                this.setState({ classesSelecionados: value })
+              }
             />
           </div>
         </div>
@@ -195,7 +248,9 @@ class Graficos extends Component {
             body={this._bodyModal()}
             id_modal={"modal_graficos"}
             getDadosForm={this.getDataForm.bind(this)}
-            list={() => {}}
+            callback={(e) => {
+              this.montaGrafico(e);
+            }}
             clickNovoCadastro={this.setDataForm.bind(this)}
             btnFinalizar="Gerar Relatório"
           />
@@ -203,37 +258,32 @@ class Graficos extends Component {
         <div className="div_antes_grafico">
           <p> Selecione os filtros e gere seu Relatório</p>
         </div>
-        <div className="box_grafico">
-          <div className="div_box_grafico">
-            <div className="div_grafico">
-              <Chart
-                width={"100%"}
-                height={"100%"}
-                margin={"0em 1em"}
-                chartType="Bar"
-                loader={<div> Carregando Gráfico ....</div>}
-                data={[
-                  [
-                    "Tentativas de Envios por Atividade",
-                    "Carlos",
-                    "Diego",
-                    "Oscar",
-                    "Rodrigo",
-                  ],
-                  ["mateira", 10, 5, 7, 8],
-                ]}
-                options={{
-                  backgroundColor: "red",
-                  chart: {
-                    title: "Relatorio de Atividades",
-                    subtitle: "Aula: " + "Logica de programação",
-                  },
-                }}
-                rootProps={{ "data-testid": "2" }}
-              />
+        {this.state.dataGraficos.length > 0 ? (
+          <div className="box_grafico">
+            <div className="div_box_grafico">
+              <div className="div_grafico">
+                <Chart
+                  width={"100%"}
+                  height={"100%"}
+                  margin={"0em 1em"}
+                  chartType="Bar"
+                  loader={<div> Carregando Gráfico ....</div>}
+                  data={this.state.dataGraficos}
+                  options={{
+                    backgroundColor: "red",
+                    chart: {
+                      title: "Relatorio de Atividades",
+                      subtitle: "Aula: " + "Logica de programação",
+                    },
+                  }}
+                  rootProps={{ "data-testid": "2" }}
+                />
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          ""
+        )}
       </div>
     );
   }

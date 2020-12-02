@@ -29,11 +29,11 @@ class ClassSelect extends Component {
     this.setState({ selecionados: value });
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.setState({
       selecionados: this.props.value,
-      naoSelecionados: this.props.options
-    })
+      naoSelecionados: this.props.options,
+    });
   }
 
   render() {
@@ -51,16 +51,21 @@ class ClassSelect extends Component {
         placeholder={this.props.placeholder}
         noOptionsMessage={() => "Sem opções!"}
         styles={customStyles}
-        options={this.state.naoSelecionados}
-        value={this.state.selecionados}
+        options={this.props.options}
+        value={this.props.selecionados}
         className="basic-multi-select"
         isMulti={(this.props.isMulti != null) ? true : false}
         classNamePrefix="select"
-        onChange={(value) => this.setState({ selecionados: value })}
+        onChange={(value) => (
+          (this.props.callback != null ) ? this.props.callback(value) : "",
+          this.setState({ selecionados: value })
+        )}
         name={this.props.name}
         id={this.props.id_name}
       />
     );
   }
 }
- export default ClassSelect;
+export default ClassSelect;
+
+
