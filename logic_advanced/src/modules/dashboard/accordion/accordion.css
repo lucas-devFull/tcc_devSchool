@@ -1,0 +1,32 @@
+.component_card_accordion{
+    cursor: pointer;
+    width: 15em;
+    height: 17em;
+    display: flex;
+    background-color: #303030;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: 0.3s;
+}
+
+.component_card .iconDash{
+    /* width: 100%; */
+    /* height: 1.4em; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 6em;
+}
+
+.component_card h3 { 
+    font-size: 20px;
+    margin-top: 0.5em;
+    height: 100%;
+}
+
+.component_card_accordion:hover {
+    background-color: #3e3e3e;
+    border: 2px solid #3e3e3e;
+    transition: 0.3s;
+}

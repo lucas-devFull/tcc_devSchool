@@ -66,7 +66,7 @@ export class Accordion extends Component {
         return (
             <>
                 <Link to="/lessons" style={{ color: '#fafafa' }}>
-                    <div className="component_card m-2">
+                    <div className="component_card m-2" style={{ width: '15em', borderRadius: '10px' }}>
                         <div className="col-auto col_padrao ">
                             <div>
                                 <div className="div_img_card">
@@ -110,7 +110,7 @@ export class Accordion extends Component {
                                 {desc_materia}
                             </button>
                             {
-                                LocalStorage.getStorage().tipo === '0' ?
+                                LocalStorage.getStorage().tipo === '0'|| LocalStorage.getStorage().tipo === '1' ?
                                     <div className=" d-flex justify-content-center ml-3"  onClick={this.deleteSubject.bind(this,idMateria)}>
                                         <FontAwesomeIcon icon="trash-alt" size="1x"/>
                                     </div>

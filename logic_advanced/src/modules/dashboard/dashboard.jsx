@@ -134,7 +134,7 @@ export default class Dashboard extends PureComponent {
                     <Header />
                     <div className="p-4 d-flex justify-content-end ">
                         {
-                            this.dataUserLogged.tipo === '0' ?
+                            this.dataUserLogged.tipo === '0' || this.dataUserLogged.tipo === '1'  ?
                                     <Modal
                                         btnName={<FontAwesomeIcon icon="book" size="2x" />}
                                         title={"Cadastro de Disciplina"}
@@ -166,7 +166,7 @@ export default class Dashboard extends PureComponent {
                                                 materias.forEach((_itemFor, j) => {
                                                     if (i !== j) $(`#accordion-${j}`).collapse('hide');
                                                 });
-                                                $(`#accordion-${i}`).collapse('show');
+                                                $(`#accordion-${i}`).collapse('toggle');
                                             }}
                                         />
                                     :
